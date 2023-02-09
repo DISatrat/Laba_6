@@ -6,7 +6,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N1();
+            N3();
         }
         static void N1()
         {
@@ -56,6 +56,54 @@ namespace Laba_6
             }
 
         }
+        static void N3()
+        {
+            ManYear[] mn = new ManYear[5];
+            mn[0] = new ManYear("Vlad",50);
+            mn[1] = new ManYear("Ivan",30);
+            mn[2] = new ManYear("Kirill",25);
+            mn[3] = new ManYear("Durov",100);
+            mn[4] = new ManYear("Andrey",5);
+            double c = 0;
+            for (int i = 0; i < mn.Length; i++)
+            {
+                c += mn[i].count;
+            }
+            for (int i = 0; i < mn.Length; i++)
+            {
+                for (int j = i+1; j < mn.Length; j++)
+                {
+                    if (mn[i].count  < mn[j].count)
+                    {
 
+                        ManYear resport = mn[i];
+
+                        mn[i] = mn[j];
+                        mn[j] = resport;
+
+                    }
+                }
+            }
+            
+            for (int i = 0; i < mn.Length; i++)
+            {
+                double sred = mn[i].count / c * 100;
+                Console.WriteLine("самые популярные "+mn[i].first_name+"их % составил ~ " +sred);
+            }
+     
+
+        }
+        struct ManYear
+        {
+            public string first_name;
+            public int count;
+         
+            public ManYear(string first_name,int count)
+            {
+                this.first_name = first_name;
+                this.count = count;
+            }
+
+        }
     }
 }
