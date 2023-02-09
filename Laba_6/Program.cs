@@ -58,12 +58,14 @@ namespace Laba_6
         }
         static void N3()
         {
-            ManYear[] mn = new ManYear[5];
+            ManYear[] mn = new ManYear[7];
             mn[0] = new ManYear("Vlad",50);
             mn[1] = new ManYear("Ivan",30);
             mn[2] = new ManYear("Kirill",25);
             mn[3] = new ManYear("Durov",100);
             mn[4] = new ManYear("Andrey",5);
+            mn[5] = new ManYear("Dima",0);
+            mn[6] = new ManYear("Nikita",340);
             double c = 0;
             for (int i = 0; i < mn.Length; i++)
             {
@@ -85,10 +87,10 @@ namespace Laba_6
                 }
             }
             
-            for (int i = 0; i < mn.Length; i++)
+            for (int i = 0; i < 5; i++)
             {
                 double sred = mn[i].count / c * 100;
-                Console.WriteLine("самые популярные "+mn[i].first_name+"их % составил ~ " +sred);
+                Console.WriteLine("самые популярные "+mn[i].first_name+" их % составил ~ " +sred);
             }
      
 
