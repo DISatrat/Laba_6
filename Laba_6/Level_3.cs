@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Transactions;
 
@@ -343,52 +344,117 @@ namespace Laba_6
 
         static void N6()
         {
-            Japanes[]jp=new Japanes[10];
+            Japanes[] jp = new Japanes[20];
 
-            string[] animals=new string[] {"Cat","Dog","Parret", "None" };
-            string[] trait=new string[] {"Polite", "Independent", "Funny","None"};
-            string[] stuff=new string[] {"Suhi","Red Sun","Asian","None" };
+            string[] animals = new string[] { "Cat", "Dog", "Parret", "Bird", "Eagle","fffff","aaaa", "None" };
+            string[] trait = new string[] { "Polite", "Independent", "Funny", "modesty", "prudence", "None" };
+            string[] stuff = new string[] { "Suhi", "Red Sun", "Asian", "Anime", "Sakura", "None" };
 
-            Random r= new Random();
+            Random r = new Random();
             Console.WriteLine("Animals  Trait  Stuff");
             Console.WriteLine();
             for (int i = 0; i < jp.Length; i++)
             {
-                int animalId=r.Next(0,animals.Length);
-                int traitId=r.Next(0,trait.Length);
-                int stufId=r.Next(0,stuff.Length);
-                
+                int animalId = r.Next(0, animals.Length);
+                int traitId = r.Next(0, trait.Length);
+                int stufId = r.Next(0, stuff.Length);
+
                 jp[i] = new Japanes(animals[animalId], trait[traitId], stuff[stufId]);
 
                 Console.WriteLine(jp[i].animal + " " + jp[i].trait + " " + jp[i].stuff);
             }
+            Console.WriteLine();
 
 
-            //чатсое животное 
+            //частое животное 
+            string popularAnimalId = " ";
+            int popularTraitId = 0;
+            int popularStuffId = 0;
 
+            int max = -1000;
 
+            int[] pa = new int[animals.Length];
+
+            for (int i = 0; i < pa.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (animals[i] == jp[j].animal && animals[i]!="None")
+                    {
+                        c++;
+                    }
+                }
+                //if (c == 0)
+                //{
+                //    c += 1;
+                //}
+                pa[i] = c;
+                Console.WriteLine(pa[i]);
+            }
 
             //чатсая характеристика 
-            
-            
-            
-            
-            //чатсый предмет
-        }
-            
-        struct Japanes
-        {
-            public string animal;
-            public string trait;
-            public string stuff;
 
-            public Japanes(string animal, string trait, string stuff)
+
+
+
+            //чатсый предмет
+
+
+            for (int i = 0; i < pa.Length - 1; i++)
             {
-                this.animal = animal;   
-                this.trait = trait;
-                this.stuff = stuff;
+                for (int j = i + 1; j < pa.Length; j++)
+                {
+                    if (pa[i] < pa[j])
+                    {
+                        int t = pa[i];
+                        pa[i] = pa[j];
+                        pa[j] = t;
+                        string f = animals[i];
+                        animals[i] = animals[j];
+                        animals[j] = f;
+                    }
+                }
+            }
+            Console.WriteLine("животные");
+            Console.WriteLine();
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine( i + 1 + " место " +"голосов "+ pa[i]+" " + animals[i]);
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("характер");
+            Console.WriteLine();
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("вещь");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
             }
 
         }
+    
+    }
+
+    struct Japanes
+    {
+        public string animal;
+        public string trait;
+        public string stuff;
+
+        public Japanes(string animal, string trait, string stuff)
+        {
+            this.animal = animal;
+            this.trait = trait;
+            this.stuff = stuff;
+        }
+
     }
 }
+
