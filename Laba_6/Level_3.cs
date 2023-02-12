@@ -408,8 +408,8 @@ namespace Laba_6
                 //{
                 //    c += 1;
                 //}
-                sa[i] = c;
-                Console.WriteLine(sa[i]);
+                ta[i] = c;
+                Console.WriteLine(ta[i]);
             }
 
 
@@ -457,7 +457,7 @@ namespace Laba_6
                     {
                         int t = ta[i];
                         ta[i] = ta[j];
-                        pa[j] = t;
+                        ta[j] = t;
                         string f = trait[i];
                         trait[i] = trait[j];
                         trait[j] = f;
