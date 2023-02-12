@@ -347,8 +347,8 @@ namespace Laba_6
             Japanes[] jp = new Japanes[20];
 
             string[] animals = new string[] { "Cat", "Dog", "Parret", "Bird", "Eagle","fffff","aaaa", "None" };
-            string[] trait = new string[] { "Polite", "Independent", "Funny", "modesty", "prudence", "None" };
-            string[] stuff = new string[] { "Suhi", "Red Sun", "Asian", "Anime", "Sakura", "None" };
+            string[] trait = new string[] { "Polite", "Independent", "Funny", "modesty", "prudence","harakter","1111", "None" };
+            string[] stuff = new string[] { "Suhi", "Red Sun", "Asian", "Anime", "Sakura","chto", "to", "None" };
 
             Random r = new Random();
             Console.WriteLine("Animals  Trait  Stuff");
@@ -366,14 +366,13 @@ namespace Laba_6
             Console.WriteLine();
 
 
-            //частое животное 
-            string popularAnimalId = " ";
-            int popularTraitId = 0;
-            int popularStuffId = 0;
+            //частые животное 
 
             int max = -1000;
 
             int[] pa = new int[animals.Length];
+            int[] ta = new int[trait.Length];
+            int[] sa = new int[stuff.Length];
 
             for (int i = 0; i < pa.Length; i++)
             {
@@ -395,11 +394,44 @@ namespace Laba_6
 
             //чатсая характеристика 
 
-
+            for (int i = 0; i < ta.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (trait[i] == jp[j].trait && trait[i] != "None")
+                    {
+                        c++;
+                    }
+                }
+                //if (c == 0)
+                //{
+                //    c += 1;
+                //}
+                sa[i] = c;
+                Console.WriteLine(sa[i]);
+            }
 
 
             //чатсый предмет
 
+            for (int i = 0; i < sa.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (stuff[i] == jp[j].stuff && stuff[i] != "None")
+                    {
+                        c++;
+                    }
+                }
+                //if (c == 0)
+                //{
+                //    c += 1;
+                //}
+                sa[i] = c;
+                Console.WriteLine(sa[i]);
+            }
 
             for (int i = 0; i < pa.Length - 1; i++)
             {
@@ -416,6 +448,39 @@ namespace Laba_6
                     }
                 }
             }
+
+            for (int i = 0; i < ta.Length - 1; i++)
+            {
+                for (int j = i + 1; j < ta.Length; j++)
+                {
+                    if (ta[i] < ta[j])
+                    {
+                        int t = ta[i];
+                        ta[i] = ta[j];
+                        pa[j] = t;
+                        string f = trait[i];
+                        trait[i] = trait[j];
+                        trait[j] = f;
+                    }
+                }
+            }
+
+            for (int i = 0; i < sa.Length - 1; i++)
+            {
+                for (int j = i + 1; j < sa.Length; j++)
+                {
+                    if (sa[i] < sa[j])
+                    {
+                        int t = sa[i];
+                        sa[i] = sa[j];
+                        sa[j] = t;
+                        string f = stuff[i];
+                        stuff[i] = stuff[j];
+                        stuff[j] = f;
+                    }
+                }
+            }
+
             Console.WriteLine("животные");
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
@@ -428,14 +493,14 @@ namespace Laba_6
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + ta[i] + " " + trait[i]);
             }
 
             Console.WriteLine();
             Console.WriteLine("вещь");
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + sa[i] + " " + stuff[i]);
             }
 
         }
