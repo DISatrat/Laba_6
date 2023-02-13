@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Transactions;
@@ -10,195 +11,337 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N6();
+            N1();
         }
         static void N1()
         {
             string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
-            Group[] s1 = new Group[5];
-            Group[] s2 = new Group[3];
-            Group[] s3 = new Group[4];
+
+            List<Group> g1 = new List<Group>();
+            List<Group> g2 = new List<Group>();
+            List<Group> g3 = new List<Group>();
+
+            g1.Add(new Group("Ivan", new int[] { 5, 2, 3, 3, 3 }));
+            g1.Add(new Group("Andrey", new int[] { 3, 3, 3, 4, 3 }));
+            g1.Add(new Group("Sasha", new int[] { 3, 5, 5, 5, 5 }));
+
+            g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
+            g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
+            g2.Add(new Group("Misha", new int[] { 3, 4, 3, 3, 3 }));
+            g2.Add(new Group("Dima", new int[] { 5, 5, 5, 4, 3 }));
+
+            g3.Add(new Group("Nika", new int[] { 2, 3, 4, 2, 5 }));
+            g3.Add(new Group("Dasha", new int[] { 2, 3, 4, 2, 2 }));
+            g3.Add(new Group("Bill", new int[] { 3, 4, 4, 4, 5 }));
 
 
-            Console.WriteLine("1 группа ");
-            for (int i = 0; i < s1.Length; i++)
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Random random = new Random();
+            //    int name = random.Next(0, Name1.Length);
+            //    int[] r = RandomMarks(5, 2, 6);
+            //    g1.Add(new Group(Name1[name], r));
+
+            //}
+
+            foreach (Group g in g1)
             {
-                Random random = new Random();
-                int name = random.Next(0, Name1.Length);
-                int[] r = RandomMarks(5, 2, 6);
-                s1[i] = new Group(Name1[name], r);
-                Console.WriteLine(s1[i].Name + " " + r[0] + " " + r[1] + " " + r[2] + " " + r[3] + " " + r[4]);
-
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("2 группа ");
-            for (int i = 0; i < s2.Length; i++)
-            {
-                Random random = new Random();
-                int name = random.Next(0, Name1.Length);
-                int[] r = RandomMarks(5, 2, 6);
-                s2[i] = new Group(Name1[name], r);
-                Console.WriteLine(s2[i].Name + " " + r[0] + " " + r[1] + " " + r[2] + " " + r[3] + " " + r[4]);
-
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("3 группа ");
-            for (int i = 0; i < s3.Length; i++)
-            {
-                Random random = new Random();
-                int name = random.Next(0, Name1.Length);
-                int[] r = RandomMarks(5, 2, 6);
-                s3[i] = new Group(Name1[name], r);
-                Console.WriteLine(s3[i].Name + " " + r[0] + " " + r[1] + " " + r[2] + " " + r[3] + " " + r[4]);
-
-            }
-
-
-            //сорвтировка групп по баллу 
-
-
-            Console.WriteLine();
-
-            double sum1 = 0;
-            for (int i = 0; i < s1.Length; i++)
-            {
-                sum1 += s1[i].Marks[0] + s1[i].Marks[1] + s1[i].Marks[2] + s1[i].Marks[3] + s1[i].Marks[4];
-            }
-            Console.WriteLine(sum1 / s1.Length);
-
-            double sum2 = 0;
-            for (int i = 0; i < s2.Length; i++)
-            {
-                sum2 += s2[i].Marks[0] + s2[i].Marks[1] + s2[i].Marks[2] + s2[i].Marks[3] + s2[i].Marks[4];
-            }
-            Console.WriteLine(sum2 / s2.Length);
-
-            double sum3 = 0;
-            for (int i = 0; i < s3.Length; i++)
-            {
-                sum3 += s3[i].Marks[0] + s3[i].Marks[1] + s3[i].Marks[2] + s3[i].Marks[3] + s3[i].Marks[4];
-            }
-            Console.WriteLine(sum3 / s3.Length);
-            Console.WriteLine();
-
-            double[] list = new double[] { sum1 / s1.Length, sum2 / s2.Length, sum3 / s3.Length };
-            for (int i = 0; i < list.Length; i++)
-            {
-                for (int j = i + 1; j < list.Length; j++)
+                for (int i = 0; i < 5; i++)
                 {
-                    if (list[i] < list[j])
-                    {
-                        double res = list[i];
-                        list[i] = list[j];
-                        list[j] = res;
-                    }
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
 
+            Console.WriteLine();
+
+            foreach (Group g in g2)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
+
+            Console.WriteLine();
+
+
+            foreach (Group g in g3)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
+
+            Console.WriteLine();
+
+            //удаление двоек
+
+            for (int k = 0; k < g1.Count + 1; k++)
+            {
+                for (int i = 0; i < g1.Count; i++)
+                {
+                    for (int j = 0; j < g1[i].Marks.Length; j++)
+                    {
+                        if (g1[i].Marks[j] == 2)
+                        {
+                            g1.Remove(g1[i]);
+                            break;
+                        }
+                    }
                 }
             }
-            for (int i = 0; i < list.Length; i++)
+
+
+            for (int k = 0; k < g2.Count + 1; k++)
             {
-                Console.WriteLine(list[i]);
+                for (int i = 0; i < g2.Count; i++)
+                {
+                    for (int j = 0; j < g2[i].Marks.Length; j++)
+                    {
+                        if (g2[i].Marks[j] == 2)
+                        {
+                            g2.Remove(g2[i]);
+                            break;
+                        }
+                    }
+                }
             }
 
-            //сортировка по среднему балу студентов
+
+            for (int k = 0; k < g3.Count + 1; k++)
+            {
+                for (int i = 0; i < g3.Count; i++)
+                {
+                    for (int j = 0; j < g3[i].Marks.Length; j++)
+                    {
+                        if (g3[i].Marks[j] == 2)
+                        {
+                            g3.Remove(g3[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            double sum1 = 0;
+            double c = 0;
+            double sred = 0;
+            foreach (Group g in g1)
+            {
+                for (int i = 0; i < g.Marks.Length; i++)
+                {
+                    sum1 += g.Marks[i];
+                }
+            }
+            sred = sum1 / (g1.Count);
+
+            if (sum1 == 0)
+            {
+                sred = 0;
+                Console.WriteLine(sred);
+            }
+            else
+            {
+                Console.WriteLine(sred);
+            }
+
+            Console.WriteLine();
+
+            double sum2 = 0;
+            c = 0;
+            double sred2 = 0;
+
+            foreach (Group g in g2)
+            {
+
+                for (int i = 0; i < g.Marks.Length; i++)
+                {
+
+                    sum2 += g.Marks[i];
+                }
+            }
+
+            sred2 = sum2 / (g2.Count - c);
+
+            if (sum2 == 0)
+            {
+                sred2 = 0;
+                Console.WriteLine(sred2);
+            }
+            else
+            {
+                Console.WriteLine(sred2);
+            }
+
+            Console.WriteLine();
+
+            double sum3 = 0;
+            c = 0;
+            double sred3 = 0;
+            foreach (Group g in g3)
+            {
+                for (int i = 0; i < g.Marks.Length; i++)
+                {
+
+                    sum3 += g.Marks[i];
+                }
+            }
+
+            sred3 = sum3 / (g3.Count - c);
+
+            if (sum3 == 0)
+            {
+                sred3 = 0;
+                Console.WriteLine(sred3);
+            }
+            else
+            {
+                Console.WriteLine(sred3);
+            }
+
+            foreach (Group g in g1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
+            Console.WriteLine();
+
+            foreach (Group g in g2)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
+            Console.WriteLine();
+            foreach (Group g in g3)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
 
 
-            ////для 1 группы
-            //for (int i = 0; i < s1.Length; i++)
-            //{
-            //    for (int j = i + 1; j < s1.Length; j++)
-            //    {
-            //        if (s1[i].Marks[0] + s1[i].Marks[1] + s1[i].Marks[2] + s1[i].Marks[3] + s1[i].Marks[4] < s1[j].Marks[0] + s1[j].Marks[1] + s1[j].Marks[2] + s1[j].Marks[3] + s1[j].Marks[4])
-            //        {
+            // сортировка учеников 
 
-            //            Group r = s1[i];
-            //            s1[i] = s1[j];
-            //            s1[j] = r;
-            //        }
-            //    }
-            //}
+            for (int i = 0; i < g1.Count; i++)
+            {
+                int sumi = 0;
+                int sumj = 0;
+                for (int j = i + 1; j < g1.Count; j++)
+                {
+                    for (int k = 0; k < g1[i].Marks.Length; k++)
+                    {
+                        sumi += g1[i].Marks[k];
+                        sumj += g1[j].Marks[k];
+                    }
+                    if (sumi < sumj)
+                    {
+                        Group r = g1[i];
 
-            ////для 2 группы
-            //for (int i = 0; i < s2.Length; i++)
-            //{
-            //    for (int j = i + 1; j < s2.Length; j++)
-            //    {
-            //        if (s2[i].Marks[0] + s2[i].Marks[1] + s2[i].Marks[2] + s2[i].Marks[3] + s2[i].Marks[4] < s2[j].Marks[0] + s2[j].Marks[1] + s2[j].Marks[2] + s2[j].Marks[3] + s2[j].Marks[4])
-            //        {
+                        g1[i] = g1[j];
+                        g1[j] = r;
+                    }
+                }
+            }
 
-            //            Group r = s2[i];
-            //            s2[i] = s2[j];
-            //            s2[j] = r;
-            //        }
-            //    }
-            //}
+            for (int i = 0; i < g2.Count; i++)
+            {
+                int sumi = 0;
+                int sumj = 0;
+                for (int j = i + 1; j < g2.Count; j++)
+                {
+                    for (int k = 0; k < g2[i].Marks.Length; k++)
+                    {
+                        sumi += g2[i].Marks[k];
+                        sumj += g2[j].Marks[k];
+                    }
+                    if (sumi < sumj)
+                    {
+                        Group r = g2[i];
 
+                        g2[i] = g2[j];
+                        g2[j] = r;
+                    }
+                }
+            }
 
-            ////для 3 группы
-            //for (int i = 0; i < s3.Length; i++)
-            //{
-            //    for (int j = i + 1; j < s3.Length; j++)
-            //    {
-            //        if (s3[i].Marks[0] + s3[i].Marks[1] + s3[i].Marks[2] + s3[i].Marks[3] + s3[i].Marks[4] < s3[j].Marks[0] + s3[j].Marks[1] + s3[j].Marks[2] + s3[j].Marks[3] + s3[j].Marks[4])
-            //        {
+            for (int i = 0; i < g3.Count; i++)
+            {
+                int sumi = 0;
+                int sumj = 0;
+                for (int j = i + 1; j < g3.Count; j++)
+                {
+                    for (int k = 0; k < g3[i].Marks.Length; k++)
+                    {
+                        sumi += g3[i].Marks[k];
+                        sumj += g3[j].Marks[k];
+                    }
+                    if (sumi < sumj)
+                    {
+                        Group r = g3[i];
 
-            //            Group r = s3[i];
-            //            s3[i] = s3[j];
-            //            s3[j] = r;
-            //        }
-            //    }
-            //}
+                        g3[i] = g3[j];
+                        g3[j] = r;
+                    }
+                }
+            }
 
+            Console.WriteLine();
 
+            foreach (Group g in g1)
+            {
+                Console.Write(g.Name + " ");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine();
+            }
 
-            //Console.WriteLine();
-            //Console.WriteLine("1 группа sorted");
+            Console.WriteLine();
 
-            //for (int i = 0; i < s1.Length; i++)
-            //{
-            //    double sum = 0;
-            //    int d = 0;
-            //    while (d <= 4)
-            //    {
-            //        sum += s1[i].Marks[d];
-            //        d++;
-            //    }
-            //    double sred = sum / 5;
-            //    Console.WriteLine(s1[i].Name + " " + sred);
-            //}
-            //Console.WriteLine();
-            //Console.WriteLine("2 группа sorted");
+            foreach (Group g in g2)
+            {
+                Console.Write(g.Name + " ");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine();
+            }
 
-            //for (int i = 0; i < s2.Length; i++)
-            //{
-            //    double sum = 0;
-            //    int d = 0;
-            //    while (d <= 4)
-            //    {
-            //        sum += s2[i].Marks[d];
-            //        d++;
-            //    }
-            //    double sred = sum / 5;
-            //    Console.WriteLine(s2[i].Name + " " + sred);
-            //}
-            //Console.WriteLine();
+            Console.WriteLine();
 
-            //Console.WriteLine("3 группа sorted");
+            foreach (Group g in g3)
+            {
+                Console.Write(g.Name + " ");
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine();
+            }
 
-            //for (int i = 0; i < s3.Length; i++)
-            //{
-            //    double sum = 0;
-            //    int d = 0;
-            //    while (d <= 4)
-            //    {
-            //        sum += s3[i].Marks[d];
-            //        d++;
-            //    }
-            //    double sred = sum / 5;
-            //    Console.WriteLine(s3[i].Name + " " + sred);
-            //}
+             List<List<Group>> gAll = new List<List<Group>>();
+
+            Console.WriteLine();
+
+            gAll.Add(g1);
+            gAll.Add(g2);
+            gAll.Add(g3);
+
+          Console.WriteLine(gAll.Count);
         }
 
         struct Group
@@ -346,9 +489,9 @@ namespace Laba_6
         {
             Japanes[] jp = new Japanes[20];
 
-            string[] animals = new string[] { "Cat", "Dog", "Parret", "Bird", "Eagle","fffff","aaaa", "None" };
-            string[] trait = new string[] { "Polite", "Independent", "Funny", "modesty", "prudence","harakter","1111", "None" };
-            string[] stuff = new string[] { "Suhi", "Red Sun", "Asian", "Anime", "Sakura","chto", "to", "None" };
+            string[] animals = new string[] { "Cat", "Dog", "Parret", "Bird", "Eagle", "fffff", "aaaa", "None" };
+            string[] trait = new string[] { "Polite", "Independent", "Funny", "modesty", "prudence", "harakter", "1111", "None" };
+            string[] stuff = new string[] { "Suhi", "Red Sun", "Asian", "Anime", "Sakura", "chto", "to", "None" };
 
             Random r = new Random();
             Console.WriteLine("Animals  Trait  Stuff");
@@ -379,7 +522,7 @@ namespace Laba_6
                 int c = 0;
                 for (int j = 0; j < jp.Length; j++)
                 {
-                    if (animals[i] == jp[j].animal && animals[i]!="None")
+                    if (animals[i] == jp[j].animal && animals[i] != "None")
                     {
                         c++;
                     }
@@ -485,7 +628,7 @@ namespace Laba_6
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine( i + 1 + " место " +"голосов "+ pa[i]+" " + animals[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
             }
             Console.WriteLine();
 
@@ -504,7 +647,8 @@ namespace Laba_6
             }
 
         }
-    
+
+
     }
 
     struct Japanes
