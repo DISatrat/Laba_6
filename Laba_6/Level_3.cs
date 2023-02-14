@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Transactions;
@@ -23,11 +24,10 @@ namespace Laba_6
 
             g1.Add(new Group("Ivan", new int[] { 5, 2, 3, 3, 3 }));
             g1.Add(new Group("Andrey", new int[] { 3, 2, 3, 4, 3 }));
-            g1.Add(new Group("Sasha", new int[] { 3, 2, 5, 5, 5 }));
-            g1.Add(new Group("Sasha", new int[] { 3, 5, 5, 5, 5 }));
-            g1.Add(new Group("Sasha", new int[] { 3, 5, 5, 5, 5 }));
-            g1.Add(new Group("Sasha", new int[] { 3, 2, 5, 5, 5 }));
-            
+            g1.Add(new Group("Sasha", new int[] { 3, 3, 3, 3, 3 }));
+            g1.Add(new Group("Sasha", new int[] { 5, 5, 5, 3, 5 }));
+
+
 
             g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
             g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
@@ -84,7 +84,7 @@ namespace Laba_6
 
             //удаление двоек
 
-            for (int k = 0; k < g1.Count +1; k++)
+            for (int k = 0; k < g1.Count + 1; k++)
             {
                 for (int i = 0; i < g1.Count; i++)
                 {
@@ -100,7 +100,7 @@ namespace Laba_6
             }
 
 
-            for (int k = 0; k < g2.Count+1; k++)
+            for (int k = 0; k < g2.Count + 1; k++)
             {
                 for (int i = 0; i < g2.Count; i++)
                 {
@@ -116,7 +116,7 @@ namespace Laba_6
             }
 
 
-            for (int k = 0; k < g3.Count+1; k++)
+            for (int k = 0; k < g3.Count + 1; k++)
             {
                 for (int i = 0; i < g3.Count; i++)
                 {
@@ -206,34 +206,34 @@ namespace Laba_6
             {
                 Console.WriteLine(sred3);
             }
-
-            foreach (Group g in g1)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    Console.Write(" " + g.Marks[i] + " ");
-                }
-                Console.WriteLine(g.Name);
-            }
             Console.WriteLine();
+            //foreach (Group g in g1)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        Console.Write(" " + g.Marks[i] + " ");
+            //    }
+            //    Console.WriteLine(g.Name);
+            //}
+            //Console.WriteLine();
 
-            foreach (Group g in g2)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    Console.Write(" " + g.Marks[i] + " ");
-                }
-                Console.WriteLine(g.Name);
-            }
-            Console.WriteLine();
-            foreach (Group g in g3)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    Console.Write(" " + g.Marks[i] + " ");
-                }
-                Console.WriteLine(g.Name);
-            }
+            //foreach (Group g in g2)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        Console.Write(" " + g.Marks[i] + " ");
+            //    }
+            //    Console.WriteLine(g.Name);
+            //}
+            //Console.WriteLine();
+            //foreach (Group g in g3)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        Console.Write(" " + g.Marks[i] + " ");
+            //    }
+            //    Console.WriteLine(g.Name);
+            //}
 
 
             // сортировка учеников 
@@ -336,18 +336,59 @@ namespace Laba_6
                 }
                 Console.WriteLine();
             }
+            All[] alls=new All[3];
 
-             List<List<Group>> gAll = new List<List<Group>>();
+            alls[0] = new All(sred, g1,1);
+            alls[1] = new All(sred2, g2,2);
+            alls[2] = new All(sred3, g3,3);
 
+            for (int i = 0; i < alls.Length; i++)
+            {
+                for (int j = i+1; j < alls.Length; j++)
+                {
+                    if (alls[i].sred < alls[j].sred)
+                    {
+                        All n = new All();
+                        n = alls[i];
+                        alls[i] = alls[j];
+                        alls[j] = n;
+
+                    }
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("сортиврока групп");
             Console.WriteLine();
 
-            gAll.Add(g1);
-            gAll.Add(g2);
-            gAll.Add(g3);
+            
+            for (int i = 0; i < alls.Length; i++)
+            {
+                    Console.WriteLine(alls[i].cg+" группа");
+                for (int k = 0; k < alls[i].g.Count; k++)
+                {
+                Console.Write(alls[i].g[k].Name + " ");
 
-          Console.WriteLine(gAll.Count);
+                for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
+                {
+                    Console.Write(alls[i].g[k].Marks[j] + " ");
+                }
+                Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+
         }
-
+        struct All {
+            public double sred;
+            public List<Group> g;
+            public int cg;
+            public All(double sred,List<Group> g,int cg)
+            {
+                this.sred = sred;
+                this.g = g;
+                this.cg = cg;
+            }
+        }
         struct Group
         {
             public string Name;
