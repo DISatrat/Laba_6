@@ -22,8 +22,12 @@ namespace Laba_6
             List<Group> g3 = new List<Group>();
 
             g1.Add(new Group("Ivan", new int[] { 5, 2, 3, 3, 3 }));
-            g1.Add(new Group("Andrey", new int[] { 3, 3, 3, 4, 3 }));
+            g1.Add(new Group("Andrey", new int[] { 3, 2, 3, 4, 3 }));
+            g1.Add(new Group("Sasha", new int[] { 3, 2, 5, 5, 5 }));
             g1.Add(new Group("Sasha", new int[] { 3, 5, 5, 5, 5 }));
+            g1.Add(new Group("Sasha", new int[] { 3, 5, 5, 5, 5 }));
+            g1.Add(new Group("Sasha", new int[] { 3, 2, 5, 5, 5 }));
+            
 
             g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
             g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
@@ -80,7 +84,7 @@ namespace Laba_6
 
             //удаление двоек
 
-            for (int k = 0; k < g1.Count + 1; k++)
+            for (int k = 0; k < g1.Count +1; k++)
             {
                 for (int i = 0; i < g1.Count; i++)
                 {
@@ -96,7 +100,7 @@ namespace Laba_6
             }
 
 
-            for (int k = 0; k < g2.Count + 1; k++)
+            for (int k = 0; k < g2.Count+1; k++)
             {
                 for (int i = 0; i < g2.Count; i++)
                 {
@@ -112,7 +116,7 @@ namespace Laba_6
             }
 
 
-            for (int k = 0; k < g3.Count + 1; k++)
+            for (int k = 0; k < g3.Count+1; k++)
             {
                 for (int i = 0; i < g3.Count; i++)
                 {
@@ -296,7 +300,7 @@ namespace Laba_6
                     }
                 }
             }
-
+            Console.WriteLine("sorted stdents");
             Console.WriteLine();
 
             foreach (Group g in g1)
