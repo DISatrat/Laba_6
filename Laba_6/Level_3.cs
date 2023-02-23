@@ -336,15 +336,15 @@ namespace Laba_6
                 }
                 Console.WriteLine();
             }
-            All[] alls=new All[3];
+            All[] alls = new All[3];
 
-            alls[0] = new All(sred, g1,1);
-            alls[1] = new All(sred2, g2,2);
-            alls[2] = new All(sred3, g3,3);
+            alls[0] = new All(sred, g1, 1);
+            alls[1] = new All(sred2, g2, 2);
+            alls[2] = new All(sred3, g3, 3);
 
             for (int i = 0; i < alls.Length; i++)
             {
-                for (int j = i+1; j < alls.Length; j++)
+                for (int j = i + 1; j < alls.Length; j++)
                 {
                     if (alls[i].sred < alls[j].sred)
                     {
@@ -360,36 +360,46 @@ namespace Laba_6
             Console.WriteLine("сортиврока групп");
             Console.WriteLine();
 
-            
+
             for (int i = 0; i < alls.Length; i++)
             {
-                    Console.WriteLine(alls[i].cg+" группа");
+                Console.WriteLine(alls[i].cg + " группа");
                 for (int k = 0; k < alls[i].g.Count; k++)
                 {
-                Console.Write(alls[i].g[k].Name + " ");
+                    Console.Write(alls[i].g[k].Name + " ");
 
-                for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
-                {
-                    Console.Write(alls[i].g[k].Marks[j] + " ");
-                }
-                Console.WriteLine();
+                    for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
+                    {
+                        Console.Write(alls[i].g[k].Marks[j] + " ");
+                    }
+                    Console.WriteLine();
                 }
                 Console.WriteLine();
             }
 
         }
-        struct All {
+        public class s
+        {
             public double sred;
+        }
+        public class All:s
+        {
+            //public double sred;
             public List<Group> g;
             public int cg;
-            public All(double sred,List<Group> g,int cg)
+
+            public All()
+            {
+            }
+
+            public All(double sred, List<Group> g, int cg)
             {
                 this.sred = sred;
                 this.g = g;
                 this.cg = cg;
             }
         }
-        struct Group
+        public class Group
         {
             public string Name;
             public int[] Marks;

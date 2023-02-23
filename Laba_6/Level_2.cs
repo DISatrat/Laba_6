@@ -23,14 +23,14 @@
 //            st[7] = new Student("Mash", 4, 5, 3, 2);
 //            st[8] = new Student("Vika", 5, 5, 4, 3);
 //            st[9] = new Student("Vitia", 3, 3, 3, 4);
-            
+
 //            for (int i = 0; i < st.Length; i++)
 //            {
-//                double sred = (st[i].Math + st[i].Proga + st[i].Phisics + st[i].History)/4;
-                
+//                double sred = (st[i].Math + st[i].Proga + st[i].Phisics + st[i].History) / 4;
+
 //                if (sred >= 4)
 //                {
-//                    Console.WriteLine(st[i].Name + " средний балл " + sred);  
+//                    Console.WriteLine(st[i].Name + " средний балл " + sred);
 //                }
 //            }
 
