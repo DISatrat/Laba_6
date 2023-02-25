@@ -12,7 +12,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N1();
+            N4();
         }
         static void N1()
         {
@@ -300,7 +300,7 @@ namespace Laba_6
                     }
                 }
             }
-            Console.WriteLine("sorted stdents");
+            Console.WriteLine("sorted, deleted students");
             Console.WriteLine();
 
             foreach (Group g in g1)
@@ -490,12 +490,13 @@ namespace Laba_6
             Console.WriteLine();
             Console.WriteLine("2 sorted group");
 
-            for (int i = 0; i < sg1.Length; i++)
+            for (int i = 0; i < sg2.Length; i++)
             {
                 Console.WriteLine(sg2[i].name + " " + sg2[i].result);
             }
 
             Console.WriteLine();
+
             SkiGroup[] sg3 = new SkiGroup[sg1.Length + sg2.Length];
 
             for (int i = 0; i < sg1.Length; i++)
@@ -503,7 +504,7 @@ namespace Laba_6
                 sg3[i] = sg1[i];
             }
 
-            for (int i = sg1.Length; i < sg1.Length + sg2.Length; i++)
+            for (int i = sg1.Length; i < sg3.Length; i++)
             {
                 sg3[i] = sg2[i - sg2.Length + 1];
             }
@@ -527,9 +528,13 @@ namespace Laba_6
                 Console.WriteLine(sg3[i].name + " " + sg3[i].result);
             }
         }
-        struct SkiGroup
+        public class Name
         {
+
             public string name;
+        }
+        public class SkiGroup:Name
+        { 
             public int result;
 
             public SkiGroup(string name, int result)
