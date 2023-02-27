@@ -280,11 +280,17 @@ namespace Laba_6
         {
             public string Name;
             public int[] Marks;
+            public double sred;
 
-            public Group(string Name, int[] Marks)
+            public Group(string Name, int[] Marks,double sred)
             {
                 this.Name = Name;
                 this.Marks = Marks;
+                for (int i = 0; i < Marks.Length; i++)
+                {
+                    sred += Marks[i];
+                }
+                this.sred = sred / Marks.Length;
             }
         }
         static int[] RandomMarks(int h, int k, int l)
