@@ -12,11 +12,11 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N4();
+            N1();
         }
         static void N1()
         {
-            string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
+            //string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
 
             List<Group> g1 = new List<Group>();
             List<Group> g2 = new List<Group>();
@@ -84,222 +84,26 @@ namespace Laba_6
 
             //удаление двоек
 
-            for (int k = 0; k < g1.Count + 1; k++)
-            {
-                for (int i = 0; i < g1.Count; i++)
-                {
-                    for (int j = 0; j < g1[i].Marks.Length; j++)
-                    {
-                        if (g1[i].Marks[j] == 2)
-                        {
-                            g1.Remove(g1[i]);
-                            break;
-                        }
-                    }
-                }
-            }
+            Remove(g1);
+            Remove(g2);
+            Remove(g3);
 
+            double sred = Sred(g1);
+            Console.WriteLine(sred);
 
-            for (int k = 0; k < g2.Count + 1; k++)
-            {
-                for (int i = 0; i < g2.Count; i++)
-                {
-                    for (int j = 0; j < g2[i].Marks.Length; j++)
-                    {
-                        if (g2[i].Marks[j] == 2)
-                        {
-                            g2.Remove(g2[i]);
-                            break;
-                        }
-                    }
-                }
-            }
+            double sred2 = Sred(g2);
+            Console.WriteLine(sred2);
 
-
-            for (int k = 0; k < g3.Count + 1; k++)
-            {
-                for (int i = 0; i < g3.Count; i++)
-                {
-                    for (int j = 0; j < g3[i].Marks.Length; j++)
-                    {
-                        if (g3[i].Marks[j] == 2)
-                        {
-                            g3.Remove(g3[i]);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            double sum1 = 0;
-            double c = 0;
-            double sred = 0;
-            foreach (Group g in g1)
-            {
-                for (int i = 0; i < g.Marks.Length; i++)
-                {
-                    sum1 += g.Marks[i];
-                }
-            }
-            sred = sum1 / (g1.Count);
-
-            if (sum1 == 0)
-            {
-                sred = 0;
-                Console.WriteLine(sred);
-            }
-            else
-            {
-                Console.WriteLine(sred);
-            }
-
-            Console.WriteLine();
-
-            double sum2 = 0;
-            c = 0;
-            double sred2 = 0;
-
-            foreach (Group g in g2)
-            {
-
-                for (int i = 0; i < g.Marks.Length; i++)
-                {
-
-                    sum2 += g.Marks[i];
-                }
-            }
-
-            sred2 = sum2 / (g2.Count - c);
-
-            if (sum2 == 0)
-            {
-                sred2 = 0;
-                Console.WriteLine(sred2);
-            }
-            else
-            {
-                Console.WriteLine(sred2);
-            }
-
-            Console.WriteLine();
-
-            double sum3 = 0;
-            c = 0;
-            double sred3 = 0;
-            foreach (Group g in g3)
-            {
-                for (int i = 0; i < g.Marks.Length; i++)
-                {
-
-                    sum3 += g.Marks[i];
-                }
-            }
-
-            sred3 = sum3 / (g3.Count - c);
-
-            if (sum3 == 0)
-            {
-                sred3 = 0;
-                Console.WriteLine(sred3);
-            }
-            else
-            {
-                Console.WriteLine(sred3);
-            }
-            Console.WriteLine();
-            //foreach (Group g in g1)
-            //{
-            //    for (int i = 0; i < 5; i++)
-            //    {
-            //        Console.Write(" " + g.Marks[i] + " ");
-            //    }
-            //    Console.WriteLine(g.Name);
-            //}
-            //Console.WriteLine();
-
-            //foreach (Group g in g2)
-            //{
-            //    for (int i = 0; i < 5; i++)
-            //    {
-            //        Console.Write(" " + g.Marks[i] + " ");
-            //    }
-            //    Console.WriteLine(g.Name);
-            //}
-            //Console.WriteLine();
-            //foreach (Group g in g3)
-            //{
-            //    for (int i = 0; i < 5; i++)
-            //    {
-            //        Console.Write(" " + g.Marks[i] + " ");
-            //    }
-            //    Console.WriteLine(g.Name);
-            //}
-
+            double sred3 = Sred(g3);
+            Console.WriteLine(sred3);
 
             // сортировка учеников 
 
-            for (int i = 0; i < g1.Count; i++)
-            {
-                int sumi = 0;
-                int sumj = 0;
-                for (int j = i + 1; j < g1.Count; j++)
-                {
-                    for (int k = 0; k < g1[i].Marks.Length; k++)
-                    {
-                        sumi += g1[i].Marks[k];
-                        sumj += g1[j].Marks[k];
-                    }
-                    if (sumi < sumj)
-                    {
-                        Group r = g1[i];
+            SortGroup(g1);
+            SortGroup(g2);
+            SortGroup(g3);
 
-                        g1[i] = g1[j];
-                        g1[j] = r;
-                    }
-                }
-            }
 
-            for (int i = 0; i < g2.Count; i++)
-            {
-                int sumi = 0;
-                int sumj = 0;
-                for (int j = i + 1; j < g2.Count; j++)
-                {
-                    for (int k = 0; k < g2[i].Marks.Length; k++)
-                    {
-                        sumi += g2[i].Marks[k];
-                        sumj += g2[j].Marks[k];
-                    }
-                    if (sumi < sumj)
-                    {
-                        Group r = g2[i];
-
-                        g2[i] = g2[j];
-                        g2[j] = r;
-                    }
-                }
-            }
-
-            for (int i = 0; i < g3.Count; i++)
-            {
-                int sumi = 0;
-                int sumj = 0;
-                for (int j = i + 1; j < g3.Count; j++)
-                {
-                    for (int k = 0; k < g3[i].Marks.Length; k++)
-                    {
-                        sumi += g3[i].Marks[k];
-                        sumj += g3[j].Marks[k];
-                    }
-                    if (sumi < sumj)
-                    {
-                        Group r = g3[i];
-
-                        g3[i] = g3[j];
-                        g3[j] = r;
-                    }
-                }
-            }
             Console.WriteLine("sorted, deleted students");
             Console.WriteLine();
 
@@ -338,9 +142,9 @@ namespace Laba_6
             }
             All[] alls = new All[3];
 
-            alls[0] = new All(sred, g1, 1);
-            alls[1] = new All(sred2, g2, 2);
-            alls[2] = new All(sred3, g3, 3);
+            alls[0] = new All(sred, "БИВТ-22-19");
+            alls[1] = new All(sred2, "БИВТ-22-20");
+            alls[2] = new All(sred3, "БИВТ-22-21");
 
             for (int i = 0; i < alls.Length; i++)
             {
@@ -348,8 +152,7 @@ namespace Laba_6
                 {
                     if (alls[i].sred < alls[j].sred)
                     {
-                        All n = new All();
-                        n = alls[i];
+                        All n = alls[i];
                         alls[i] = alls[j];
                         alls[j] = n;
 
@@ -363,43 +166,117 @@ namespace Laba_6
 
             for (int i = 0; i < alls.Length; i++)
             {
-                Console.WriteLine(alls[i].cg + " группа");
-                for (int k = 0; k < alls[i].g.Count; k++)
-                {
-                    Console.Write(alls[i].g[k].Name + " ");
-
-                    for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
-                    {
-                        Console.Write(alls[i].g[k].Marks[j] + " ");
-                    }
-                    Console.WriteLine();
-                }
-                Console.WriteLine();
+                Console.WriteLine(alls[i].GroupName + " " + alls[i].sred);
             }
 
+            //for (int i = 0; i < alls.Length; i++)
+            //{
+            //    Console.WriteLine(alls[i].cg + " группа");
+            //    for (int k = 0; k < alls[i].g.Count; k++)
+            //    {
+            //        Console.Write(alls[i].g[k].Name + " ");
+
+            //        for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
+            //        {
+            //            Console.Write(alls[i].g[k].Marks[j] + " ");
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //    Console.WriteLine();
+            //}
+
         }
-        public class s
+
+        static double Sred(List<Group> g1)
+        {
+            double sum1 = 0;
+            double c = 0;
+            double sred = 0;
+            foreach (Group g in g1)
+            {
+                for (int i = 0; i < g.Marks.Length; i++)
+                {
+                    sum1 += g.Marks[i];
+                }
+            }
+            sred = sum1 / (g1.Count);
+            if (sum1 == 0)
+            {
+                sred = 0;
+                return sred;
+            }
+            else
+            {
+                return sred;
+            }
+           
+
+
+        }
+
+        static void SortGroup(List<Group> g)
+        {
+            for (int i = 0; i < g.Count; i++)
+            {
+                int sumi = 0;
+                int sumj = 0;
+                for (int j = i + 1; j < g.Count; j++)
+                {
+                    for (int k = 0; k < g[i].Marks.Length; k++)
+                    {
+                        sumi += g[i].Marks[k];
+                        sumj += g[j].Marks[k];
+                    }
+                    if (sumi/5 < sumj/5)
+                    {
+                        Group r = g[i];
+
+                        g[i] = g[j];
+                        g[j] = r;
+                    }
+                }
+            }
+        }
+
+        static void Remove(List<Group> g)
+        {
+            for (int k = 0; k < g.Count + 1; k++)
+            {
+                for (int i = 0; i < g.Count; i++)
+                {
+                    for (int j = 0; j < g[i].Marks.Length; j++)
+                    {
+                        if (g[i].Marks[j] == 2)
+                        {
+                            g.Remove(g[i]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        //public class s
+        //{
+        //    public double sred;
+        //}
+        struct All
         {
             public double sred;
-        }
-        public class All:s
-        {
-            //public double sred;
-            public List<Group> g;
-            public int cg;
+            //public List<Group> g;
+            public string GroupName; 
+            //public int cg;
 
-            public All()
-            {
-            }
+            
 
-            public All(double sred, List<Group> g, int cg)
+            public All(double sred,string GroupName)
             {
                 this.sred = sred;
-                this.g = g;
-                this.cg = cg;
+                this.GroupName = GroupName;
+                //this.cg = cg;
             }
         }
-        public class Group
+        struct Group
         {
             public string Name;
             public int[] Marks;
