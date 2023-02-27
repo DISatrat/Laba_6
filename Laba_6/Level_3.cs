@@ -29,24 +29,14 @@ namespace Laba_6
 
 
 
-            g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
+            g2.Add(new Group("Max", new int[] { 3, 5, 5, 2, 3 }));
             g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
             g2.Add(new Group("Misha", new int[] { 3, 4, 3, 3, 3 }));
-            g2.Add(new Group("Dima", new int[] { 5, 5, 5, 4, 3 }));
+            g2.Add(new Group("Dima", new int[] { 5, 5, 5, 5, 3 }));
 
             g3.Add(new Group("Nika", new int[] { 2, 3, 4, 2, 5 }));
             g3.Add(new Group("Dasha", new int[] { 2, 3, 4, 2, 2 }));
             g3.Add(new Group("Bill", new int[] { 3, 4, 4, 4, 5 }));
-
-
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    Random random = new Random();
-            //    int name = random.Next(0, Name1.Length);
-            //    int[] r = RandomMarks(5, 2, 6);
-            //    g1.Add(new Group(Name1[name], r));
-
-            //}
 
             foreach (Group g in g1)
             {
@@ -168,23 +158,6 @@ namespace Laba_6
             {
                 Console.WriteLine(alls[i].GroupName + " " + alls[i].sred);
             }
-
-            //for (int i = 0; i < alls.Length; i++)
-            //{
-            //    Console.WriteLine(alls[i].cg + " группа");
-            //    for (int k = 0; k < alls[i].g.Count; k++)
-            //    {
-            //        Console.Write(alls[i].g[k].Name + " ");
-
-            //        for (int j = 0; j < alls[i].g[k].Marks.Length; j++)
-            //        {
-            //            Console.Write(alls[i].g[k].Marks[j] + " ");
-            //        }
-            //        Console.WriteLine();
-            //    }
-            //    Console.WriteLine();
-            //}
-
         }
 
         static double Sred(List<Group> g1)
@@ -194,10 +167,7 @@ namespace Laba_6
             double sred = 0;
             foreach (Group g in g1)
             {
-                for (int i = 0; i < g.Marks.Length; i++)
-                {
-                    sum1 += g.Marks[i];
-                }
+                sum1+=g.sred;
             }
             sred = sum1 / (g1.Count);
             if (sum1 == 0)
@@ -218,19 +188,11 @@ namespace Laba_6
         {
             for (int i = 0; i < g.Count; i++)
             {
-                int sumi = 0;
-                int sumj = 0;
-                for (int j = i + 1; j < g.Count; j++)
+                for (int j = i+1; j < g.Count; j++)
                 {
-                    for (int k = 0; k < g[i].Marks.Length; k++)
-                    {
-                        sumi += g[i].Marks[k];
-                        sumj += g[j].Marks[k];
-                    }
-                    if (sumi/5 < sumj/5)
+                    if (g[i].sred < g[j].sred)
                     {
                         Group r = g[i];
-
                         g[i] = g[j];
                         g[j] = r;
                     }
@@ -263,17 +225,12 @@ namespace Laba_6
         struct All
         {
             public double sred;
-            //public List<Group> g;
             public string GroupName; 
-            //public int cg;
-
-            
 
             public All(double sred,string GroupName)
             {
                 this.sred = sred;
                 this.GroupName = GroupName;
-                //this.cg = cg;
             }
         }
         struct Group
@@ -282,15 +239,15 @@ namespace Laba_6
             public int[] Marks;
             public double sred;
 
-            public Group(string Name, int[] Marks,double sred)
+            public Group(string Name, int[] Marks)
             {
+                sred = 0;
                 this.Name = Name;
                 this.Marks = Marks;
                 for (int i = 0; i < Marks.Length; i++)
                 {
                     sred += Marks[i];
                 }
-                this.sred = sred / Marks.Length;
             }
         }
         static int[] RandomMarks(int h, int k, int l)
@@ -411,15 +368,15 @@ namespace Laba_6
                 Console.WriteLine(sg3[i].name + " " + sg3[i].result);
             }
         }
-        public class Name
-        {
+        //public class Name
+        //{
 
-            public string name;
-        }
-        public class SkiGroup:Name
+        //    public string name;
+        //}
+        struct SkiGroup
         { 
             public int result;
-
+            public string name;
             public SkiGroup(string name, int result)
             {
                 this.name = name;
@@ -475,7 +432,7 @@ namespace Laba_6
                 //    c += 1;
                 //}
                 pa[i] = c;
-                Console.WriteLine(pa[i]);
+                //Console.WriteLine(pa[i]);
             }
 
             //чатсая характеристика 
@@ -495,7 +452,7 @@ namespace Laba_6
                 //    c += 1;
                 //}
                 ta[i] = c;
-                Console.WriteLine(ta[i]);
+                //Console.WriteLine(ta[i]);
             }
 
 
@@ -516,7 +473,7 @@ namespace Laba_6
                 //    c += 1;
                 //}
                 sa[i] = c;
-                Console.WriteLine(sa[i]);
+                //Console.WriteLine(sa[i]);
             }
 
             for (int i = 0; i < pa.Length - 1; i++)
