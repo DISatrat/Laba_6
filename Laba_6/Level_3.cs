@@ -12,7 +12,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N1();
+            N6();
         }
         static void N1()
         {
@@ -29,7 +29,7 @@ namespace Laba_6
 
 
 
-            g2.Add(new Group("Max", new int[] { 3, 5, 5, 2, 3 }));
+            g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
             g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
             g2.Add(new Group("Misha", new int[] { 3, 4, 3, 3, 3 }));
             g2.Add(new Group("Dima", new int[] { 5, 5, 5, 5, 3 }));
@@ -150,7 +150,7 @@ namespace Laba_6
                 }
             }
             Console.WriteLine();
-            Console.WriteLine("сортиврока групп");
+            Console.WriteLine("сортированные группы");
             Console.WriteLine();
 
 
@@ -264,76 +264,59 @@ namespace Laba_6
 
         static void N4()
         {
-            SkiGroup[] sg1 = new SkiGroup[5];
-            SkiGroup[] sg2 = new SkiGroup[6];
+            SkiGroup[] sg1 = new SkiGroup[3];
+            SkiGroup[] sg2 = new SkiGroup[4];
 
-            string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
+            sg1[0] = new SkiGroup("Ivan", 10);
+            sg1[1] = new SkiGroup("Sasha", 5);
+            sg1[2] = new SkiGroup("Nekita", 12);
+
+            sg2[0] = new SkiGroup("Vika", 18);
+            sg2[1] = new SkiGroup("Nikolai", 9);
+            sg2[2] = new SkiGroup("Anton", 19);
+            sg2[3] = new SkiGroup("Misha", 2);
+
+            //string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" 
 
             Console.WriteLine("1 group");
-            for (int i = 0; i < sg1.Length; i++)
-            {
-                Random random = new Random();
-                int name = random.Next(0, Name1.Length);
-                int r = random.Next(1, 101);
-                sg1[i] = new SkiGroup(Name1[name], r);
-                Console.WriteLine(sg1[i].name + " " + sg1[i].result);
-            }
+
+             PrintSki(sg1);
+
+            //for (int i = 0; i < sg1.Length; i++)
+            //{
+            //    Random random = new Random();
+            //    int name = random.Next(0, Name1.Length);
+            //    int r = random.Next(1, 101);
+            //    sg1[i] = new SkiGroup(Name1[name], r);
+            //    Console.WriteLine(sg1[i].name + " " + sg1[i].result);
+            //}
 
             Console.WriteLine();
             Console.WriteLine("2 group");
 
-            for (int i = 0; i < sg2.Length; i++)
-            {
-                Random random = new Random();
-                int name = random.Next(0, Name1.Length);
-                int r = random.Next(1, 101);
-                sg2[i] = new SkiGroup(Name1[name], r);
-                Console.WriteLine(sg2[i].name + " " + sg2[i].result);
-            }
+            PrintSki(sg2);
 
-            //sorted 1 group
-            for (int i = 0; i < sg1.Length; i++)
-            {
-                for (int j = i + 1; j < sg1.Length; j++)
-                {
-                    if (sg1[i].result < sg1[j].result)
-                    {
-                        SkiGroup r = sg1[i];
-                        sg1[i] = sg1[j];
-                        sg1[j] = r;
-                    }
-                }
-            }
+            //for (int i = 0; i < sg2.Length; i++)
+            //{
+            //    Random random = new Random();
+            //    int name = random.Next(0, Name1.Length);
+            //    int r = random.Next(1, 101);
+            //    sg2[i] = new SkiGroup(Name1[name], r);
+            //    Console.WriteLine(sg2[i].name + " " + sg2[i].result);
+            //}
 
-            //sorted 2 group
-            for (int i = 0; i < sg2.Length; i++)
-            {
-                for (int j = i + 1; j < sg2.Length; j++)
-                {
-                    if (sg2[i].result < sg2[j].result)
-                    {
-                        SkiGroup r = sg2[i];
-                        sg2[i] = sg2[j];
-                        sg2[j] = r;
-                    }
-                }
-            }
+            SortSki(sg1);
+            SortSki(sg2);
 
             Console.WriteLine();
             Console.WriteLine("1 sorted group");
 
-            for (int i = 0; i < sg1.Length; i++)
-            {
-                Console.WriteLine(sg1[i].name + " " + sg1[i].result);
-            }
+            PrintSki(sg1);
 
             Console.WriteLine();
             Console.WriteLine("2 sorted group");
 
-            for (int i = 0; i < sg2.Length; i++)
-            {
-                Console.WriteLine(sg2[i].name + " " + sg2[i].result);
-            }
+            PrintSki(sg2);
 
             Console.WriteLine();
 
@@ -346,27 +329,15 @@ namespace Laba_6
 
             for (int i = sg1.Length; i < sg3.Length; i++)
             {
-                sg3[i] = sg2[i - sg2.Length + 1];
-            }
-            Console.WriteLine();
-            Console.WriteLine("Final table");
-            for (int i = 0; i < sg3.Length; i++)
-            {
-                for (int j = i + 1; j < sg3.Length; j++)
-                {
-                    if (sg3[i].result < sg3[j].result)
-                    {
-                        SkiGroup r = sg3[i];
-                        sg3[i] = sg3[j];
-                        sg3[j] = r;
-                    }
-                }
+                sg3[i] = sg2[i+1 - sg2.Length];
             }
 
-            for (int i = 0; i < sg3.Length; i++)
-            {
-                Console.WriteLine(sg3[i].name + " " + sg3[i].result);
-            }
+            Console.WriteLine();
+            Console.WriteLine("Final table");
+            
+            SortSki(sg3);
+
+            PrintSki(sg3);
         }
         //public class Name
         //{
@@ -384,6 +355,28 @@ namespace Laba_6
             }
         }
 
+        static void PrintSki(SkiGroup[] sg2)
+        {
+            for (int i = 0; i < sg2.Length; i++)
+            {
+                Console.WriteLine(sg2[i].name + " " + sg2[i].result);
+            }
+        }
+         static void SortSki(SkiGroup[] sg)
+        {
+            for (int i = 0; i < sg.Length; i++)
+            {
+                for (int j = i + 1; j < sg.Length; j++)
+                {
+                    if (sg[i].result < sg[j].result)
+                    {
+                        SkiGroup r = sg[i];
+                        sg[i] = sg[j];
+                        sg[j] = r;
+                    }
+                }
+            }
+        }
 
         static void N6()
         {
@@ -396,6 +389,8 @@ namespace Laba_6
             Random r = new Random();
             Console.WriteLine("Animals  Trait  Stuff");
             Console.WriteLine();
+
+
             for (int i = 0; i < jp.Length; i++)
             {
                 int animalId = r.Next(0, animals.Length);
@@ -411,11 +406,11 @@ namespace Laba_6
 
             //частые животное 
 
-            int max = -1000;
+            //int max = -1000;
 
-            int[] pa = new int[animals.Length];
-            int[] ta = new int[trait.Length];
-            int[] sa = new int[stuff.Length];
+            double[] pa = new double[animals.Length];
+            double[] ta = new double[trait.Length];
+            double[] sa = new double[stuff.Length];
 
             for (int i = 0; i < pa.Length; i++)
             {
@@ -427,12 +422,7 @@ namespace Laba_6
                         c++;
                     }
                 }
-                //if (c == 0)
-                //{
-                //    c += 1;
-                //}
                 pa[i] = c;
-                //Console.WriteLine(pa[i]);
             }
 
             //чатсая характеристика 
@@ -447,14 +437,8 @@ namespace Laba_6
                         c++;
                     }
                 }
-                //if (c == 0)
-                //{
-                //    c += 1;
-                //}
                 ta[i] = c;
-                //Console.WriteLine(ta[i]);
             }
-
 
             //чатсый предмет
 
@@ -468,67 +452,18 @@ namespace Laba_6
                         c++;
                     }
                 }
-                //if (c == 0)
-                //{
-                //    c += 1;
-                //}
                 sa[i] = c;
-                //Console.WriteLine(sa[i]);
             }
 
-            for (int i = 0; i < pa.Length - 1; i++)
-            {
-                for (int j = i + 1; j < pa.Length; j++)
-                {
-                    if (pa[i] < pa[j])
-                    {
-                        int t = pa[i];
-                        pa[i] = pa[j];
-                        pa[j] = t;
-                        string f = animals[i];
-                        animals[i] = animals[j];
-                        animals[j] = f;
-                    }
-                }
-            }
-
-            for (int i = 0; i < ta.Length - 1; i++)
-            {
-                for (int j = i + 1; j < ta.Length; j++)
-                {
-                    if (ta[i] < ta[j])
-                    {
-                        int t = ta[i];
-                        ta[i] = ta[j];
-                        ta[j] = t;
-                        string f = trait[i];
-                        trait[i] = trait[j];
-                        trait[j] = f;
-                    }
-                }
-            }
-
-            for (int i = 0; i < sa.Length - 1; i++)
-            {
-                for (int j = i + 1; j < sa.Length; j++)
-                {
-                    if (sa[i] < sa[j])
-                    {
-                        int t = sa[i];
-                        sa[i] = sa[j];
-                        sa[j] = t;
-                        string f = stuff[i];
-                        stuff[i] = stuff[j];
-                        stuff[j] = f;
-                    }
-                }
-            }
+            FilterPopularItem(pa, animals);
+            FilterPopularItem(ta, trait);
+            FilterPopularItem(sa, stuff);
 
             Console.WriteLine("животные");
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]+" " + pa[i]/20*100+"%");
             }
             Console.WriteLine();
 
@@ -536,20 +471,55 @@ namespace Laba_6
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + ta[i] + " " + trait[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + ta[i] + " " + trait[i] + " " + ta[i] / 20 * 100 + "%");
             }
 
             Console.WriteLine();
             Console.WriteLine("вещь");
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + sa[i] + " " + stuff[i]);
+                Console.WriteLine(i + 1 + " место " + "голосов " + sa[i] + " " + stuff[i] + " " + sa[i] / 20 * 100 + "%");
             }
 
         }
 
+        //static void PopularItems(int[] pa, string[] animals, Japanes[] jp)
+        //{
+        //    for (int i = 0; i < pa.Length; i++)
+        //    {
+        //        int c = 0;
+        //        for (int j = 0; j < jp.Length; j++)
+        //        {
+        //            if (animals[i] == jp[j].animal && animals[i] != "None")
+        //            {
+        //                c++;
+        //            }
+        //        }
+        //        pa[i] = c;
+        //    }
 
+        //}
+        static void FilterPopularItem(double[] indexItem, string[] Item)
+        {
+            for (int i = 0; i < indexItem.Length - 1; i++)
+            {
+                for (int j = i + 1; j < indexItem.Length; j++)
+                {
+                    if (indexItem[i] < indexItem[j])
+                    {
+                        double t = indexItem[i];
+                        indexItem[i] = indexItem[j];
+                        indexItem[j] = t;
+                        string f = Item[i];
+                        Item[i] = Item[j];
+                        Item[j] = f;
+                    }
+                }
+            }
+        }
     }
+
+
 
     struct Japanes
     {
