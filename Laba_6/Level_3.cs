@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,7 +13,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N1();
+            N6();
         }
         static void N1()
         {
@@ -27,7 +28,7 @@ namespace Laba_6
             g1.Add(new Group("Sasha", new int[] { 3, 3, 3, 3, 3 }));
             g1.Add(new Group("Sasha", new int[] { 5, 5, 5, 3, 5 }));
 
-
+            Console.WriteLine(g1[0].sred);
 
             g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
             g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
@@ -379,6 +380,156 @@ namespace Laba_6
             }
         }
 
+        static void N6_v2()
+        {
+            Japanes[] jp= new Japanes[13];
+
+            jp[0]=new Japanes("Cat","Polite","Red Sun");
+            jp[1]=new Japanes("Dog","Funny","Sushi");
+            jp[2]=new Japanes("Dog","Indepented","None");
+            jp[3]=new Japanes("None","Funny","None");
+            jp[4]=new Japanes("Bird","Modesty","Asian");
+            jp[5]=new Japanes("Bird","Modesty","Anime");
+            jp[6]=new Japanes("Fish","Polite","Anime");
+            jp[7]=new Japanes("Fish","Indepented","Anime");
+            jp[8]=new Japanes("Cat","Polite","Asian");
+            jp[9]=new Japanes("Snake","Prudence","Suhi");
+            jp[10]=new Japanes("Parret","Prudence","Sakura");
+            jp[11]=new Japanes("Snake", "Indepented", "Red Sun");
+            jp[12]=new Japanes("Cat","None","Sakura");
+
+            Console.WriteLine("Animals  Trait  Stuff");
+            Console.WriteLine();
+            foreach (Japanes item in jp)
+            {
+                Console.WriteLine(item.animal+" "+item.trait+" "+item.stuff);
+            }
+
+            Console.WriteLine();
+
+            List<String> AnimalList= new List<String>();
+            List<String> TraitList= new List<String>();
+            List<String> StuffList= new List<String>();
+
+            foreach (Japanes item in jp)
+            {
+                AnimalList.Add(item.animal);
+            }
+
+
+            foreach (Japanes j in jp)
+            {
+                TraitList.Add(j.trait);
+            }
+
+
+            foreach (Japanes j in jp)
+            {
+                StuffList.Add(j.stuff);
+            }
+
+            HashSet<String> Animalset = new HashSet<String>(AnimalList);
+            HashSet<String> Traitset= new HashSet<String>(TraitList);
+            HashSet<String> Stuffset= new HashSet<String>(StuffList);
+
+            AnimalList.Clear();
+            AnimalList.AddRange(Animalset);
+
+            TraitList.Clear();
+            TraitList.AddRange(Traitset);
+
+            StuffList.Clear();
+            StuffList.AddRange(Stuffset);
+
+            double[] pa = new double[AnimalList.Count];
+            double[] ta = new double[TraitList.Count];
+            double[] sa = new double[StuffList.Count];
+
+            //частые животное 
+
+            for (int i = 0; i < pa.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (AnimalList[i] == jp[j].animal && AnimalList[i] != "None")
+                    {
+                        c++;
+                    }
+                }
+                pa[i] = c;
+            }
+
+            //чатсая характеристика 
+
+            for (int i = 0; i < ta.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (TraitList[i] == jp[j].trait && TraitList[i] != "None")
+                    {
+                        c++;
+                    }
+                }
+                ta[i] = c;
+            }
+
+            //чатсый предмет
+
+            for (int i = 0; i < sa.Length; i++)
+            {
+                int c = 0;
+                for (int j = 0; j < jp.Length; j++)
+                {
+                    if (StuffList[i] == jp[j].stuff && StuffList[i] != "None")
+                    {
+                        c++;
+                    }
+                }
+                sa[i] = c;
+            }
+
+            FilterPopularItem_2(pa, AnimalList);
+            FilterPopularItem_2(ta, TraitList);
+            FilterPopularItem_2(sa, StuffList);
+
+            Console.WriteLine("животные");
+            Console.WriteLine();
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + AnimalList[i] + " " + pa[i] / jp.Length * 100 + "%");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("характер");
+            Console.WriteLine();
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(i + 1 + " место " + "голосов " + ta[i] + " " + TraitList[i] + " " + ta[i] / jp.Length * 100 + "%");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("вещь");
+            for (int i = 0; i < 5; i++)
+            {
+                Console.WriteLine(i + 1 + " место " + "голосов " + sa[i] + " " + StuffList[i] + " " + sa[i] / jp.Length * 100 + "%");
+            }
+
+        }
+        static HashSet<String> ItemList(Japanes[] j )
+        {
+            HashSet<String> list = new HashSet<String>();
+
+            foreach (Japanes jp in j)
+            {
+                list.Add(jp.trait);
+            }
+
+                return list;
+
+        }
+
         static void N6()
         {
             Japanes[] jp = new Japanes[20];
@@ -501,6 +652,24 @@ namespace Laba_6
 
         //}
         static void FilterPopularItem(double[] indexItem, string[] Item)
+        {
+            for (int i = 0; i < indexItem.Length - 1; i++)
+            {
+                for (int j = i + 1; j < indexItem.Length; j++)
+                {
+                    if (indexItem[i] < indexItem[j])
+                    {
+                        double t = indexItem[i];
+                        indexItem[i] = indexItem[j];
+                        indexItem[j] = t;
+                        string f = Item[i];
+                        Item[i] = Item[j];
+                        Item[j] = f;
+                    }
+                }
+            }
+        }
+        static void FilterPopularItem_2(double[] indexItem, List<String> Item)
         {
             for (int i = 0; i < indexItem.Length - 1; i++)
             {
