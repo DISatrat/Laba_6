@@ -12,7 +12,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N6();
+            N1();
         }
         static void N1()
         {
@@ -248,6 +248,7 @@ namespace Laba_6
                 {
                     sred += Marks[i];
                 }
+                sred /= 5;
             }
         }
         static int[] RandomMarks(int h, int k, int l)
