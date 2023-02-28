@@ -13,7 +13,9 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N6();
+            //N1();
+
+            N4();
         }
         static void N1()
         {
@@ -164,7 +166,6 @@ namespace Laba_6
         static double Sred(List<Group> g1)
         {
             double sum1 = 0;
-            double c = 0;
             double sred = 0;
             foreach (Group g in g1)
             {
