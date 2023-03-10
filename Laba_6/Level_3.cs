@@ -13,9 +13,9 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            //N1();
+            N4();
 
-            N6_v2();
+            //N6_v2();
         }
         static void N1()
         {
@@ -76,6 +76,9 @@ namespace Laba_6
             Console.WriteLine();
 
             //удаление двоек
+            SortGroup(g1);
+            SortGroup(g2);
+            SortGroup(g3);
 
             Remove(g1);
             Remove(g2);
@@ -91,11 +94,6 @@ namespace Laba_6
             Console.WriteLine(sred3);
 
             // сортировка учеников 
-
-            SortGroup(g1);
-            SortGroup(g2);
-            SortGroup(g3);
-
 
             Console.WriteLine("sorted, deleted students");
             Console.WriteLine();
@@ -204,17 +202,15 @@ namespace Laba_6
 
         static void Remove(List<Group> g)
         {
-            for (int k = 0; k < g.Count + 1; k++)
+            for (int i = 0; i < g.Count; i++)
             {
-                for (int i = 0; i < g.Count; i++)
+                for (int j = 0; j < g[i].Marks.Length; j++)
                 {
-                    for (int j = 0; j < g[i].Marks.Length; j++)
+                    if (g[i].Marks[j] == 2)
                     {
-                        if (g[i].Marks[j] == 2)
-                        {
-                            g.Remove(g[i]);
-                            break;
-                        }
+                        g.Remove(g[i]);
+                        i--;
+                        break;
                     }
                 }
             }
@@ -249,6 +245,11 @@ namespace Laba_6
                 for (int i = 0; i < Marks.Length; i++)
                 {
                     sred += Marks[i];
+                    if (Marks[i] == 2)
+                    {
+                        sred = 0;
+                        break;
+                    }
                 }
                 sred /= 5;
             }
@@ -278,8 +279,6 @@ namespace Laba_6
             sg2[1] = new SkiGroup("Nikolai", 9);
             sg2[2] = new SkiGroup("Anton", 19);
             sg2[3] = new SkiGroup("Misha", 2);
-
-            //string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" 
 
             Console.WriteLine("1 group");
 
@@ -325,20 +324,25 @@ namespace Laba_6
 
             SkiGroup[] sg3 = new SkiGroup[sg1.Length + sg2.Length];
 
-            for (int i = 0; i < sg1.Length; i++)
+            for (int i = 0; i < sg3.Length; i++)
             {
-                sg3[i] = sg1[i];
+
+                if (sg1[i].result > sg2[i].result)
+                {
+                    sg3[i] = sg1[i];
+                }
             }
 
-            for (int i = sg1.Length; i < sg3.Length; i++)
-            {
-                sg3[i] = sg2[i+1 - sg2.Length];
-            }
+            //for (int i = sg1.Length; i < sg3.Length; i++)
+            //{
+            //    sg3[i] = sg2[i + 1 - sg2.Length];
+            //}
+
 
             Console.WriteLine();
             Console.WriteLine("Final table");
-            
-            SortSki(sg3);
+
+            //SortSki(sg3);
 
             PrintSki(sg3);
         }
@@ -412,11 +416,16 @@ namespace Laba_6
             List<String> TraitList= new List<String>();
             List<String> StuffList= new List<String>();
 
+
+
             foreach (Japanes item in jp)
             {
                 AnimalList.Add(item.animal);
             }
-
+            foreach (var h in AnimalList)
+            {
+                Console.WriteLine(h);
+            }
 
             foreach (Japanes j in jp)
             {
