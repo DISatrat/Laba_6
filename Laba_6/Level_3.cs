@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Tracing;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Text;
 using System.Transactions;
 
@@ -13,9 +15,8 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N4();
+            N6_2();
 
-            //N6_v2();
         }
         static void N1()
         {
@@ -167,7 +168,7 @@ namespace Laba_6
             double sred = 0;
             foreach (Group g in g1)
             {
-                sum1+=g.sred;
+                sum1 += g.sred;
             }
             sred = sum1 / (g1.Count);
             if (sum1 == 0)
@@ -179,7 +180,7 @@ namespace Laba_6
             {
                 return sred;
             }
-           
+
 
 
         }
@@ -188,7 +189,7 @@ namespace Laba_6
         {
             for (int i = 0; i < g.Count; i++)
             {
-                for (int j = i+1; j < g.Count; j++)
+                for (int j = i + 1; j < g.Count; j++)
                 {
                     if (g[i].sred < g[j].sred)
                     {
@@ -223,9 +224,9 @@ namespace Laba_6
         struct All
         {
             public double sred;
-            public string GroupName; 
+            public string GroupName;
 
-            public All(double sred,string GroupName)
+            public All(double sred, string GroupName)
             {
                 this.sred = sred;
                 this.GroupName = GroupName;
@@ -268,44 +269,27 @@ namespace Laba_6
 
         static void N4()
         {
-            SkiGroup[] sg1 = new SkiGroup[3];
-            SkiGroup[] sg2 = new SkiGroup[4];
+            List<SkiGroup> sg1 = new List<SkiGroup>();
+            List<SkiGroup> sg2 = new List<SkiGroup>();
 
-            sg1[0] = new SkiGroup("Ivan", 10);
-            sg1[1] = new SkiGroup("Sasha", 5);
-            sg1[2] = new SkiGroup("Nekita", 12);
+            sg1.Add(new SkiGroup("Ivan", 10));
+            sg1.Add(new SkiGroup("Sasha", 5));
+            sg1.Add(new SkiGroup("Nekita", 12));
+            sg1.Add(new SkiGroup("Tanya", 2));
 
-            sg2[0] = new SkiGroup("Vika", 18);
-            sg2[1] = new SkiGroup("Nikolai", 9);
-            sg2[2] = new SkiGroup("Anton", 19);
-            sg2[3] = new SkiGroup("Misha", 2);
+            sg2.Add(new SkiGroup("Vika", 18));
+            sg2.Add(new SkiGroup("Nikolai", 9));
+            sg2.Add(new SkiGroup("Anton", 19));
+            sg2.Add(new SkiGroup("Misha", 2));
 
             Console.WriteLine("1 group");
 
-             PrintSki(sg1);
-
-            //for (int i = 0; i < sg1.Length; i++)
-            //{
-            //    Random random = new Random();
-            //    int name = random.Next(0, Name1.Length);
-            //    int r = random.Next(1, 101);
-            //    sg1[i] = new SkiGroup(Name1[name], r);
-            //    Console.WriteLine(sg1[i].name + " " + sg1[i].result);
-            //}
+            PrintSki(sg1);
 
             Console.WriteLine();
             Console.WriteLine("2 group");
 
             PrintSki(sg2);
-
-            //for (int i = 0; i < sg2.Length; i++)
-            //{
-            //    Random random = new Random();
-            //    int name = random.Next(0, Name1.Length);
-            //    int r = random.Next(1, 101);
-            //    sg2[i] = new SkiGroup(Name1[name], r);
-            //    Console.WriteLine(sg2[i].name + " " + sg2[i].result);
-            //}
 
             SortSki(sg1);
             SortSki(sg2);
@@ -320,31 +304,12 @@ namespace Laba_6
 
             PrintSki(sg2);
 
-            Console.WriteLine();
-
-            SkiGroup[] sg3 = new SkiGroup[sg1.Length + sg2.Length];
-
-            for (int i = 0; i < sg3.Length; i++)
-            {
-
-                if (sg1[i].result > sg2[i].result)
-                {
-                    sg3[i] = sg1[i];
-                }
-            }
-
-            //for (int i = sg1.Length; i < sg3.Length; i++)
-            //{
-            //    sg3[i] = sg2[i + 1 - sg2.Length];
-            //}
-
 
             Console.WriteLine();
             Console.WriteLine("Final table");
-
-            //SortSki(sg3);
-
+            List<SkiGroup> sg3 = Final(sg1, sg2);
             PrintSki(sg3);
+
         }
         //public class Name
         //{
@@ -352,7 +317,7 @@ namespace Laba_6
         //    public string name;
         //}
         struct SkiGroup
-        { 
+        {
             public int result;
             public string name;
             public SkiGroup(string name, int result)
@@ -361,19 +326,44 @@ namespace Laba_6
                 this.result = result;
             }
         }
-
-        static void PrintSki(SkiGroup[] sg2)
+        static List<SkiGroup> Final(List<SkiGroup> list1, List<SkiGroup> list2)
         {
-            for (int i = 0; i < sg2.Length; i++)
+            List<SkiGroup> sg3 = new List<SkiGroup>();
+
+            while (list1.Count > 0 & list2.Count > 0)
+            {
+                if (list1[0].result < list2[0].result)
+                {
+                    sg3.Add(list2[0]);
+                    list2.RemoveAt(0);
+                }
+                else if (list1[0].result > list2[0].result)
+                {
+                    sg3.Add(list1[0]);
+                    list1.RemoveAt(0);
+                }
+                else
+                {
+                    sg3.Add(list1[0]);
+                    list1.RemoveAt(0);
+                    sg3.Add(list2[0]);
+                    list2.RemoveAt(0);
+                }
+            }
+            return sg3; 
+        }
+        static void PrintSki(List<SkiGroup> sg2)
+        {
+            for (int i = 0; i < sg2.Count; i++)
             {
                 Console.WriteLine(sg2[i].name + " " + sg2[i].result);
             }
         }
-         static void SortSki(SkiGroup[] sg)
+        static void SortSki(List<SkiGroup> sg)
         {
-            for (int i = 0; i < sg.Length; i++)
+            for (int i = 0; i < sg.Count; i++)
             {
-                for (int j = i + 1; j < sg.Length; j++)
+                for (int j = i + 1; j < sg.Count; j++)
                 {
                     if (sg[i].result < sg[j].result)
                     {
@@ -385,161 +375,141 @@ namespace Laba_6
             }
         }
 
-        static void N6_v2()
-        {
-            Japanes[] jp= new Japanes[13];
 
-            jp[0]=new Japanes("Cat","Polite","Red Sun");
-            jp[1]=new Japanes("Dog","Funny","Sushi");
-            jp[2]=new Japanes("Dog","Indepented","None");
-            jp[3]=new Japanes("None","Funny","None");
-            jp[4]=new Japanes("Bird","Modesty","Asian");
-            jp[5]=new Japanes("Bird","Modesty","Anime");
-            jp[6]=new Japanes("Fish","Polite","Anime");
-            jp[7]=new Japanes("Fish","Indepented","Anime");
-            jp[8]=new Japanes("Cat","Polite","Asian");
-            jp[9]=new Japanes("Snake","Prudence","Suhi");
-            jp[10]=new Japanes("Parret","Prudence","Sakura");
-            jp[11]=new Japanes("Snake", "Indepented", "Red Sun");
-            jp[12]=new Japanes("Cat","None","Sakura");
 
-            Console.WriteLine("Animals  Trait  Stuff");
-            Console.WriteLine();
-            foreach (Japanes item in jp)
+        static void N6_2()
+        {            
+
+            List<Answer> animal = new List<Answer>();
+            
+            animal.Add(new Answer("Cat",1));
+            animal.Add(new Answer("Dog",1));
+            animal.Add(new Answer("Dog",1));
+            animal.Add(new Answer("Snake",1));
+            animal.Add(new Answer("Bird",1));
+            animal.Add(new Answer("Fish",1));
+            
+            List<Answer> trait = new List<Answer>();
+            
+            trait.Add(new Answer("ppp", 1));
+            trait.Add(new Answer("funny", 1));
+            trait.Add(new Answer("funny", 1));
+            trait.Add(new Answer("cool", 1));
+            trait.Add(new Answer("angry", 1));
+            trait.Add(new Answer("Not Good", 1));
+
+            List<Answer> stuff = new List<Answer>();
+            
+            stuff.Add(new Answer("Sakura", 1));
+            stuff.Add(new Answer("Sakura", 1));
+            stuff.Add(new Answer("add1", 1));
+            stuff.Add(new Answer("None", 1));
+            stuff.Add(new Answer("Sun", 1));
+            stuff.Add(new Answer("Sushi", 1));
+
+            for (int i = 0; i < animal.Count; i++)
             {
-                Console.WriteLine(item.animal+" "+item.trait+" "+item.stuff);
-            }
-
-            Console.WriteLine();
-
-            List<String> AnimalList= new List<String>();
-            List<String> TraitList= new List<String>();
-            List<String> StuffList= new List<String>();
-
-
-
-            foreach (Japanes item in jp)
-            {
-                AnimalList.Add(item.animal);
-            }
-            foreach (var h in AnimalList)
-            {
-                Console.WriteLine(h);
-            }
-
-            foreach (Japanes j in jp)
-            {
-                TraitList.Add(j.trait);
-            }
-
-
-            foreach (Japanes j in jp)
-            {
-                StuffList.Add(j.stuff);
-            }
-
-            HashSet<String> Animalset = new HashSet<String>(AnimalList);
-            HashSet<String> Traitset= new HashSet<String>(TraitList);
-            HashSet<String> Stuffset= new HashSet<String>(StuffList);
-
-            AnimalList.Clear();
-            AnimalList.AddRange(Animalset);
-
-            TraitList.Clear();
-            TraitList.AddRange(Traitset);
-
-            StuffList.Clear();
-            StuffList.AddRange(Stuffset);
-
-            double[] pa = new double[AnimalList.Count];
-            double[] ta = new double[TraitList.Count];
-            double[] sa = new double[StuffList.Count];
-
-            //частые животное 
-
-            for (int i = 0; i < pa.Length; i++)
-            {
-                int c = 0;
-                for (int j = 0; j < jp.Length; j++)
-                {
-                    if (AnimalList[i] == jp[j].animal && AnimalList[i] != "None")
-                    {
-                        c++;
-                    }
-                }
-                pa[i] = c;
-            }
-
-            //чатсая характеристика 
-
-            for (int i = 0; i < ta.Length; i++)
-            {
-                int c = 0;
-                for (int j = 0; j < jp.Length; j++)
-                {
-                    if (TraitList[i] == jp[j].trait && TraitList[i] != "None")
-                    {
-                        c++;
-                    }
-                }
-                ta[i] = c;
-            }
-
-            //чатсый предмет
-
-            for (int i = 0; i < sa.Length; i++)
-            {
-                int c = 0;
-                for (int j = 0; j < jp.Length; j++)
-                {
-                    if (StuffList[i] == jp[j].stuff && StuffList[i] != "None")
-                    {
-                        c++;
-                    }
-                }
-                sa[i] = c;
-            }
-
-            FilterPopularItem_2(pa, AnimalList);
-            FilterPopularItem_2(ta, TraitList);
-            FilterPopularItem_2(sa, StuffList);
-
-            Console.WriteLine("животные");
-            Console.WriteLine();
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + AnimalList[i] + " " + pa[i] / jp.Length * 100 + "%");
+                Console.Write(animal[i].answer+" " + trait[i].answer+" " + stuff[i].answer);
+                Console.WriteLine();
             }
             Console.WriteLine();
 
-            Console.WriteLine("характер");
-            Console.WriteLine();
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine(i + 1 + " место " + "голосов " + ta[i] + " " + TraitList[i] + " " + ta[i] / jp.Length * 100 + "%");
-            }
+            HashSet<Answer> Animalset = new HashSet<Answer>(animal);
+            HashSet<Answer> Traitset = new HashSet<Answer>(trait);
+            HashSet<Answer> Stuffset = new HashSet<Answer>(stuff);
 
-            Console.WriteLine();
-            Console.WriteLine("вещь");
-            for (int i = 0; i < 5; i++)
-            {
-                Console.WriteLine(i + 1 + " место " + "голосов " + sa[i] + " " + StuffList[i] + " " + sa[i] / jp.Length * 100 + "%");
-            }
+            //animal.Clear();
+            //animal.AddRange(Animalset);
 
-        }
-        static HashSet<String> ItemList(Japanes[] j )
-        {
-            HashSet<String> list = new HashSet<String>();
+            //trait.Clear();
+            //trait.AddRange(Traitset);
 
-            foreach (Japanes jp in j)
-            {
-                list.Add(jp.trait);
-            }
+            //stuff.Clear();
+            //stuff.AddRange(Stuffset);
 
-                return list;
+
+            List<Answer> CountAnimals = Filter(animal, Animalset);
+            List<Answer> CountTrait = Filter(trait, Traitset);
+            List<Answer> CountStuff = Filter(stuff, Stuffset);
+
+            FivePopularItems(CountAnimals);
+
+            FivePopularItems(CountTrait);
+            
+            FivePopularItems(CountStuff);
+
+            Console.WriteLine("animals");
+            PrintPopular(CountAnimals);
+            Console.WriteLine("Trait");
+            PrintPopular(CountTrait);
+            Console.WriteLine("Stuff");
+            PrintPopular(CountStuff);
 
         }
 
+
+        static void PrintPopular(List<Answer> Animalset)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write(i + 1 +" место " + Animalset[i].answer +" голосов = "+ Animalset[i].count+ " " + Animalset[i].count/Animalset.Count*100+"%");
+                Console.WriteLine();
+            }
+        }
+        static void FivePopularItems(List<Answer> count)
+        {
+            for (int i = 0; i < count.Count; i++)
+            {
+                for (int j = 0; j < count.Count - 1 ; j++)
+                {
+                    if (count[j].count < count[j + 1].count)
+                    {
+                        Answer answer = count[j];
+                        count[j] = count[j+1];
+                        count[j+1] = answer;
+                    }
+                }
+            }
+        }
+
+        static List<Answer> Filter(List<Answer> list, HashSet<Answer> set)
+        {
+            List<Answer> result= new List<Answer>();
+
+            for (int i = 0; i < set.Count; i++)
+            {
+                int c = 0;
+
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if (set.ElementAt(i).answer == list[j].answer && set.ElementAt(i).answer != "None")
+                    {
+                        c++;
+                    }
+                }
+                result.Add(new Answer(set.ElementAt(i).answer, c));
+            }
+            return result;
+        }
+
+        struct Answer
+        {
+            public string answer;
+            public double count;
+            public Answer(string answer, double count)
+            {
+                this.answer = answer;
+                this.count = count;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// </summary>
         static void N6()
         {
             Japanes[] jp = new Japanes[20];
@@ -625,7 +595,7 @@ namespace Laba_6
             Console.WriteLine();
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i]+" " + pa[i]/20*100+"%");
+                Console.WriteLine(i + 1 + " место " + "голосов " + pa[i] + " " + animals[i] + " " + pa[i] / 20 * 100 + "%");
             }
             Console.WriteLine();
 
@@ -645,22 +615,6 @@ namespace Laba_6
 
         }
 
-        //static void PopularItems(int[] pa, string[] animals, Japanes[] jp)
-        //{
-        //    for (int i = 0; i < pa.Length; i++)
-        //    {
-        //        int c = 0;
-        //        for (int j = 0; j < jp.Length; j++)
-        //        {
-        //            if (animals[i] == jp[j].animal && animals[i] != "None")
-        //            {
-        //                c++;
-        //            }
-        //        }
-        //        pa[i] = c;
-        //    }
-
-        //}
         static void FilterPopularItem(double[] indexItem, string[] Item)
         {
             for (int i = 0; i < indexItem.Length - 1; i++)
@@ -679,6 +633,8 @@ namespace Laba_6
                 }
             }
         }
+    
+
         static void FilterPopularItem_2(double[] indexItem, List<String> Item)
         {
             for (int i = 0; i < indexItem.Length - 1; i++)
@@ -698,8 +654,6 @@ namespace Laba_6
             }
         }
     }
-
-
 
     struct Japanes
     {
