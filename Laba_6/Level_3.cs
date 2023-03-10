@@ -15,7 +15,7 @@ namespace Laba_6
         {
             //N1();
 
-            N4();
+            N6_v2();
         }
         static void N1()
         {
