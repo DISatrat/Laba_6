@@ -350,7 +350,7 @@ namespace Laba_6
                     list2.RemoveAt(0);
                 }
             }
-            return sg3; 
+            return sg3;
         }
         static void PrintSki(List<SkiGroup> sg2)
         {
@@ -378,19 +378,19 @@ namespace Laba_6
 
 
         static void N6_2()
-        {            
+        {
 
             List<Answer> animal = new List<Answer>();
-            
-            animal.Add(new Answer("Cat",1));
-            animal.Add(new Answer("Dog",1));
-            animal.Add(new Answer("Dog",1));
-            animal.Add(new Answer("Snake",1));
-            animal.Add(new Answer("Bird",1));
-            animal.Add(new Answer("Fish",1));
-            
+
+            animal.Add(new Answer("Cat", 1));
+            animal.Add(new Answer("Dog", 1));
+            animal.Add(new Answer("Dog", 1));
+            animal.Add(new Answer("Snake", 1));
+            animal.Add(new Answer("Bird", 1));
+            animal.Add(new Answer("Fish", 1));
+
             List<Answer> trait = new List<Answer>();
-            
+
             trait.Add(new Answer("ppp", 1));
             trait.Add(new Answer("funny", 1));
             trait.Add(new Answer("funny", 1));
@@ -399,7 +399,7 @@ namespace Laba_6
             trait.Add(new Answer("Not Good", 1));
 
             List<Answer> stuff = new List<Answer>();
-            
+
             stuff.Add(new Answer("Sakura", 1));
             stuff.Add(new Answer("Sakura", 1));
             stuff.Add(new Answer("add1", 1));
@@ -409,7 +409,7 @@ namespace Laba_6
 
             for (int i = 0; i < animal.Count; i++)
             {
-                Console.Write(animal[i].answer+" " + trait[i].answer+" " + stuff[i].answer);
+                Console.Write(animal[i].answer + " " + trait[i].answer + " " + stuff[i].answer);
                 Console.WriteLine();
             }
             Console.WriteLine();
@@ -418,63 +418,62 @@ namespace Laba_6
             HashSet<Answer> Traitset = new HashSet<Answer>(trait);
             HashSet<Answer> Stuffset = new HashSet<Answer>(stuff);
 
-            //animal.Clear();
-            //animal.AddRange(Animalset);
+            List<Answer> CountAnimals = Counter(animal, Animalset);
+            List<Answer> CountTrait = Counter(trait, Traitset);
+            List<Answer> CountStuff = Counter(stuff, Stuffset);
 
-            //trait.Clear();
-            //trait.AddRange(Traitset);
+            FilterItems(CountAnimals);
 
-            //stuff.Clear();
-            //stuff.AddRange(Stuffset);
+            FilterItems(CountTrait);
 
-
-            List<Answer> CountAnimals = Filter(animal, Animalset);
-            List<Answer> CountTrait = Filter(trait, Traitset);
-            List<Answer> CountStuff = Filter(stuff, Stuffset);
-
-            FivePopularItems(CountAnimals);
-
-            FivePopularItems(CountTrait);
-            
-            FivePopularItems(CountStuff);
+            FilterItems(CountStuff);
 
             Console.WriteLine("animals");
-            PrintPopular(CountAnimals);
+            PrintFivePopularItems(CountAnimals, animal);
+
             Console.WriteLine("Trait");
-            PrintPopular(CountTrait);
+            PrintFivePopularItems(CountTrait, trait);
+
             Console.WriteLine("Stuff");
-            PrintPopular(CountStuff);
+            PrintFivePopularItems(CountStuff, stuff);
 
         }
 
 
-        static void PrintPopular(List<Answer> Animalset)
+        static void PrintFivePopularItems(List<Answer> Animalset, List<Answer> a)
         {
             for (int i = 0; i < 5; i++)
             {
-                Console.Write(i + 1 +" место " + Animalset[i].answer +" голосов = "+ Animalset[i].count+ " " + Animalset[i].count/Animalset.Count*100+"%");
-                Console.WriteLine();
+                if (Animalset[i].answer == "None")
+                {
+                    continue;
+                }
+                else
+                {
+                    Console.Write(i + 1 + " место " + Animalset[i].answer + " голосов = " + Animalset[i].count + " " + Animalset[i].count / a.Count * 100 + "%");
+                    Console.WriteLine();
+                }
             }
         }
-        static void FivePopularItems(List<Answer> count)
+        static void FilterItems(List<Answer> count)
         {
             for (int i = 0; i < count.Count; i++)
             {
-                for (int j = 0; j < count.Count - 1 ; j++)
+                for (int j = 0; j < count.Count - 1; j++)
                 {
                     if (count[j].count < count[j + 1].count)
                     {
                         Answer answer = count[j];
-                        count[j] = count[j+1];
-                        count[j+1] = answer;
+                        count[j] = count[j + 1];
+                        count[j + 1] = answer;
                     }
                 }
             }
         }
 
-        static List<Answer> Filter(List<Answer> list, HashSet<Answer> set)
+        static List<Answer> Counter(List<Answer> list, HashSet<Answer> set)
         {
-            List<Answer> result= new List<Answer>();
+            List<Answer> result = new List<Answer>();
 
             for (int i = 0; i < set.Count; i++)
             {
@@ -633,7 +632,7 @@ namespace Laba_6
                 }
             }
         }
-    
+
 
         static void FilterPopularItem_2(double[] indexItem, List<String> Item)
         {
