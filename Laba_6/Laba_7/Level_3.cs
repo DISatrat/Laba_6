@@ -3,36 +3,48 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Transactions;
 
-namespace Laba_6
+namespace Laba_6.Laba_7
 {
     class Level_3
     {
-        static void Main(string[] args)
+       public static void N1()
         {
-            N1();
+            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
+            StreamReader streamReader= new StreamReader(path);
 
-        }
-        static void N1()
-        {
-            //string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
 
             List<Step> g1 = new List<Step>();
             List<Step> g2 = new List<Step>();
             List<Step> g3 = new List<Step>();
 
+           while(!streamReader.EndOfStream) 
+           { 
+
+                string line=streamReader.ReadLine();
+                string[]s=line.Split(';');
+                int[] a = line.Split(new char[] {',',' '}).Select(n => int.Parse(n)).ToArray();
+                g1.Add(new Step(s[0],a));
+           }
+            foreach (var item in g1)
+            {
+                Console.WriteLine(item.Name);
+            }
+           
+            
             g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
             g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
             g1.Add(new Step("Sasha", new int[] { 3, 3, 3, 3, 3 }));
             g1.Add(new Step("Sasha", new int[] { 5, 5, 5, 3, 5 }));
 
-            Console.WriteLine(  g1[0].step);
-            
+            Console.WriteLine(g1[0].step);
+
             Console.WriteLine(g1[0].sred);
 
             g2.Add(new Step("Max", new int[] { 5, 5, 5, 5, 5 }));
@@ -172,7 +184,7 @@ namespace Laba_6
             {
                 sum1 += g.sred;
             }
-            sred = sum1 / (g1.Count);
+            sred = sum1 / g1.Count;
             if (sum1 == 0)
             {
                 sred = 0;
@@ -248,7 +260,7 @@ namespace Laba_6
                     step = 2000;
                 }
                 Console.Write("степендия " + Name + " = " + step);
-                Console.WriteLine();    
+                Console.WriteLine();
             }
 
         }
@@ -299,21 +311,21 @@ namespace Laba_6
         }
 
 
-        static void N4()
+        public static void N4()
         {
-            List<SkiGroup> sg1 = new List<SkiGroup>();
-            List<SkiGroup> sg2 = new List<SkiGroup>();
+            List<Results> sg1 = new List<Results>();
+            List<Results> sg2 = new List<Results>();
 
-            sg1.Add(new SkiGroup("Ivan", 10));
-            sg1.Add(new SkiGroup("Sasha", 5));
-            sg1.Add(new SkiGroup("Nekita", 12));
-            sg1.Add(new SkiGroup("Tanya", 2));
-            sg1.Add(new SkiGroup("Tanya", 100));
+            sg1.Add(new Results("Ivan", 10));
+            sg1.Add(new Results("Sasha", 5));
+            sg1.Add(new Results("Nekita", 12));
+            sg1.Add(new Results("Tanya", 2));
+            sg1.Add(new Results("Tanya", 100));
 
-            sg2.Add(new SkiGroup("Vika", 18));
-            sg2.Add(new SkiGroup("Nikolai", 9));
-            sg2.Add(new SkiGroup("Anton", 19));
-            sg2.Add(new SkiGroup("Misha", 2));
+            sg2.Add(new Results("Vika", 18));
+            sg2.Add(new Results("Nikolai", 9));
+            sg2.Add(new Results("Anton", 19));
+            sg2.Add(new Results("Misha", 2));
 
             Console.WriteLine("1 group");
 
@@ -341,28 +353,45 @@ namespace Laba_6
 
             Console.WriteLine();
             Console.WriteLine("Final table");
-            List<SkiGroup> sg3 = Final(sg1, sg2);
+            List<Results> sg3 = Final(sg1, sg2);
             PrintSki(sg3);
 
         }
-        
-        public class Name
+
+        public class Results : SkiGroup
         {
-            public string name;
+            public string res;
+
+            public Results(string name, int result) : base(name, result)
+            {
+                res = "";
+                if (result > 30)
+                {
+                    res = "мастер спорта";
+                }
+                else if (result > 10)
+                {
+                    res = "кандитат мастера спорта";
+                }
+                else
+                {
+                    res = "новичок";
+                }
+            }
         }
-        public class SkiGroup:Name
+        public class SkiGroup
         {
             public int result;
-            //public string name;
+            public string name;
             public SkiGroup(string name, int result)
             {
                 this.name = name;
                 this.result = result;
             }
         }
-        static List<SkiGroup> Final(List<SkiGroup> list1, List<SkiGroup> list2)
+        static List<Results> Final(List<Results> list1, List<Results> list2)
         {
-            List<SkiGroup> sg3 = new List<SkiGroup>();
+            List<Results> sg3 = new List<Results>();
 
             while (list1.Count > 0 & list2.Count > 0)
             {
@@ -386,14 +415,14 @@ namespace Laba_6
             }
             return sg3;
         }
-        static void PrintSki(List<SkiGroup> sg2)
+        static void PrintSki(List<Results> sg2)
         {
             for (int i = 0; i < sg2.Count; i++)
             {
-                Console.WriteLine(sg2[i].name + " " + sg2[i].result);
+                Console.WriteLine(sg2[i].name + " " + sg2[i].result + " " + sg2[i].res);
             }
         }
-        static void SortSki(List<SkiGroup> sg)
+        static void SortSki(List<Results> sg)
         {
             for (int i = 0; i < sg.Count; i++)
             {
@@ -401,7 +430,7 @@ namespace Laba_6
                 {
                     if (sg[i].result < sg[j].result)
                     {
-                        SkiGroup r = sg[i];
+                        Results r = sg[i];
                         sg[i] = sg[j];
                         sg[j] = r;
                     }
@@ -668,7 +697,7 @@ namespace Laba_6
         }
 
 
-        static void FilterPopularItem_2(double[] indexItem, List<String> Item)
+        static void FilterPopularItem_2(double[] indexItem, List<string> Item)
         {
             for (int i = 0; i < indexItem.Length - 1; i++)
             {
