@@ -15,32 +15,34 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N6_2();
+            N1();
 
         }
         static void N1()
         {
             //string[] Name1 = new string[] { "Sasha", "Andrey", "Max", "Ivan", "Nikita", "Misha", "Nika", "Masha", "Vika", "Vitia", "Danil", "Dima", "NN", "Bill" };
 
-            List<Group> g1 = new List<Group>();
-            List<Group> g2 = new List<Group>();
-            List<Group> g3 = new List<Group>();
+            List<Step> g1 = new List<Step>();
+            List<Step> g2 = new List<Step>();
+            List<Step> g3 = new List<Step>();
 
-            g1.Add(new Group("Ivan", new int[] { 5, 2, 3, 3, 3 }));
-            g1.Add(new Group("Andrey", new int[] { 3, 2, 3, 4, 3 }));
-            g1.Add(new Group("Sasha", new int[] { 3, 3, 3, 3, 3 }));
-            g1.Add(new Group("Sasha", new int[] { 5, 5, 5, 3, 5 }));
+            g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
+            g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
+            g1.Add(new Step("Sasha", new int[] { 3, 3, 3, 3, 3 }));
+            g1.Add(new Step("Sasha", new int[] { 5, 5, 5, 3, 5 }));
 
+            Console.WriteLine(  g1[0].step);
+            
             Console.WriteLine(g1[0].sred);
 
-            g2.Add(new Group("Max", new int[] { 5, 5, 5, 5, 5 }));
-            g2.Add(new Group("Nikita", new int[] { 3, 3, 5, 3, 4 }));
-            g2.Add(new Group("Misha", new int[] { 3, 4, 3, 3, 3 }));
-            g2.Add(new Group("Dima", new int[] { 5, 5, 5, 5, 3 }));
+            g2.Add(new Step("Max", new int[] { 5, 5, 5, 5, 5 }));
+            g2.Add(new Step("Nikita", new int[] { 3, 3, 5, 3, 4 }));
+            g2.Add(new Step("Misha", new int[] { 3, 4, 3, 3, 3 }));
+            g2.Add(new Step("Dima", new int[] { 5, 5, 5, 5, 3 }));
 
-            g3.Add(new Group("Nika", new int[] { 2, 3, 4, 2, 5 }));
-            g3.Add(new Group("Dasha", new int[] { 2, 3, 4, 2, 2 }));
-            g3.Add(new Group("Bill", new int[] { 3, 4, 4, 4, 5 }));
+            g3.Add(new Step("Nika", new int[] { 2, 3, 4, 2, 5 }));
+            g3.Add(new Step("Dasha", new int[] { 2, 3, 4, 2, 2 }));
+            g3.Add(new Step("Bill", new int[] { 3, 4, 4, 4, 5 }));
 
             foreach (Group g in g1)
             {
@@ -162,7 +164,7 @@ namespace Laba_6
             }
         }
 
-        static double Sred(List<Group> g1)
+        static double Sred(List<Step> g1)
         {
             double sum1 = 0;
             double sred = 0;
@@ -185,7 +187,7 @@ namespace Laba_6
 
         }
 
-        static void SortGroup(List<Group> g)
+        static void SortGroup(List<Step> g)
         {
             for (int i = 0; i < g.Count; i++)
             {
@@ -193,7 +195,7 @@ namespace Laba_6
                 {
                     if (g[i].sred < g[j].sred)
                     {
-                        Group r = g[i];
+                        Step r = g[i];
                         g[i] = g[j];
                         g[j] = r;
                     }
@@ -201,7 +203,7 @@ namespace Laba_6
             }
         }
 
-        static void Remove(List<Group> g)
+        static void Remove(List<Step> g)
         {
             for (int i = 0; i < g.Count; i++)
             {
@@ -217,11 +219,41 @@ namespace Laba_6
             }
         }
 
-        //public class s
-        //{
-        //    public double sred;
-        //}
-        struct All
+        public class Step : Group
+        {
+            public double step;
+            public Step(string Name, int[] Marks) : base(Name, Marks)
+            {
+                step = 0;
+                int min = int.MaxValue;
+
+                foreach (var item in Marks)
+                {
+                    if (item < min)
+                    {
+                        min = item;
+                    }
+                }
+
+                if (min == 3)
+                {
+                    step = 1100;
+                }
+                else if (min == 4)
+                {
+                    step = 1500;
+                }
+                else if (min == 5)
+                {
+                    step = 2000;
+                }
+                Console.Write("степендия " + Name + " = " + step);
+                Console.WriteLine();    
+            }
+
+        }
+
+        public class All
         {
             public double sred;
             public string GroupName;
@@ -232,7 +264,7 @@ namespace Laba_6
                 this.GroupName = GroupName;
             }
         }
-        struct Group
+        public class Group
         {
             public string Name;
             public int[] Marks;
@@ -276,6 +308,7 @@ namespace Laba_6
             sg1.Add(new SkiGroup("Sasha", 5));
             sg1.Add(new SkiGroup("Nekita", 12));
             sg1.Add(new SkiGroup("Tanya", 2));
+            sg1.Add(new SkiGroup("Tanya", 100));
 
             sg2.Add(new SkiGroup("Vika", 18));
             sg2.Add(new SkiGroup("Nikolai", 9));
@@ -305,21 +338,22 @@ namespace Laba_6
             PrintSki(sg2);
 
 
+
             Console.WriteLine();
             Console.WriteLine("Final table");
             List<SkiGroup> sg3 = Final(sg1, sg2);
             PrintSki(sg3);
 
         }
-        //public class Name
-        //{
-
-        //    public string name;
-        //}
-        struct SkiGroup
+        
+        public class Name
+        {
+            public string name;
+        }
+        public class SkiGroup:Name
         {
             public int result;
-            public string name;
+            //public string name;
             public SkiGroup(string name, int result)
             {
                 this.name = name;
