@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
@@ -14,38 +15,56 @@ namespace Laba_6.Laba_7
 {
     class Level_3
     {
-       public static void N1()
+        public static void N1()
         {
             string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
-            StreamReader streamReader= new StreamReader(path);
+            StreamReader streamReader = new StreamReader(path);
 
 
             List<Step> g1 = new List<Step>();
             List<Step> g2 = new List<Step>();
             List<Step> g3 = new List<Step>();
+            int r = 0;
+            //while (!streamReader.EndOfStream)
+            //{
+            //    string line = streamReader.ReadLine();
+            //    string[] s = line.Split(';');
+            //    string name = s[0];
+            //    string[] mas = s[1].Split(",");
+            //    int[] a = Array.ConvertAll(mas, int.Parse);
+            //    g1.Add(new Step(name, a));
 
-           while(!streamReader.EndOfStream) 
-           { 
+            //    foreach (Group g in g1)
+            //    {
+            //        for (int i = 0; i < 5; i++)
+            //        {
+            //            Console.Write(" " + g.Marks[i] + " ");
+            //        }
+            //        Console.WriteLine(g.Name);
+            //    }
+            //    Console.WriteLine();
 
-                string line=streamReader.ReadLine();
-                string[]s=line.Split(';');
-                int[] a = line.Split(new char[] {',',' '}).Select(n => int.Parse(n)).ToArray();
-                g1.Add(new Step(s[0],a));
-           }
-            foreach (var item in g1)
-            {
-                Console.WriteLine(item.Name);
-            }
-           
-            
-            g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
-            g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
-            g1.Add(new Step("Sasha", new int[] { 3, 3, 3, 3, 3 }));
-            g1.Add(new Step("Sasha", new int[] { 5, 5, 5, 3, 5 }));
+            //}
+            Reader(g1, path, 0);
+            //Reader(g2, path, 1);
+            //Reader(g3, path, 2);
 
-            Console.WriteLine(g1[0].step);
+            //Console.WriteLine();
 
-            Console.WriteLine(g1[0].sred);
+            //foreach (var item in g1)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+
+
+            //g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
+            //g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
+            //g1.Add(new Step("Sasha", new int[] { 3, 3, 3, 3, 3 }));
+            //g1.Add(new Step("Sasha", new int[] { 5, 5, 5, 3, 5 }));
+
+            //Console.WriteLine(g1[0].step);
+
+            //Console.WriteLine(g1[0].sred);
 
             g2.Add(new Step("Max", new int[] { 5, 5, 5, 5, 5 }));
             g2.Add(new Step("Nikita", new int[] { 3, 3, 5, 3, 4 }));
@@ -176,6 +195,39 @@ namespace Laba_6.Laba_7
             }
         }
 
+        static void Reader(List<Step> g1, string path, int c)
+        {
+            StreamReader streamReader = new StreamReader(path);
+            string line = "";
+            for (int i = 0; i <= c; i++)
+            {
+                line = streamReader.ReadLine();
+            }
+
+            string[] s = line.Split(';');
+            Console.WriteLine(line);
+
+            //int[] a = Array.ConvertAll(m, int.Parse);
+            //g1.Add(new Step(name, a));
+
+
+
+
+            //string name = s[0];
+            //string[] mas = s[1].Split(",");
+            //int[] a = Array.ConvertAll(mas, int.Parse);
+
+            foreach (Group g in g1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" " + g.Marks[i] + " ");
+                }
+                Console.WriteLine(g.Name);
+            }
+            //Console.WriteLine();
+        }
+
         static double Sred(List<Step> g1)
         {
             double sum1 = 0;
@@ -259,7 +311,7 @@ namespace Laba_6.Laba_7
                 {
                     step = 2000;
                 }
-                Console.Write("степендия " + Name + " = " + step);
+                //Console.Write("степендия " + Name + " = " + step);
                 Console.WriteLine();
             }
 

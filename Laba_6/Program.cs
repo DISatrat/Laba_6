@@ -8,7 +8,7 @@ namespace Laba_6
     {
         static void Main(string[] args)
         {
-            N1();
+            N2_8();
         }
     }
 }

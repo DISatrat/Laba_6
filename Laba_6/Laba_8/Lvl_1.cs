@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -11,7 +12,7 @@ namespace Laba_6.Laba_8
         public static void N1_8()
         {
             string line = "ацацана";
-            char[] a= line.ToCharArray();
+            char[] a = line.ToCharArray();
             HashSet<char> set = new HashSet<char>(a);
             double d = 0;
             for (int i = 0; i < set.Count; i++)
@@ -21,9 +22,9 @@ namespace Laba_6.Laba_8
                 {
                     if (set.ElementAt(i) == line[j])
                     {
-                        c++;  
-                    }  
-                } 
+                        c++;
+                    }
+                }
                 if (c == 1)
                 {
                     c -= c;
@@ -33,22 +34,26 @@ namespace Laba_6.Laba_8
                     d += c;
                 }
             }
-            Console.WriteLine("буквы встречаются c частотой"+d/line.Length*100+"%");
+            Console.WriteLine("буквы встречаются c частотой" + d / line.Length * 100 + "%");
         }
-
-        public static void N2_8() 
+        //['olleh','drow']
+        public static void N2_8()
         {
-            string line = "!dlrow olleH";
+            string line = "olleH !dlrow";
 
-            char[] a= line.ToCharArray();
-
-            for (int i = a.Length-1; i >= 0; i--)
+            string[] f = line.Split(" ");
+            for (int i = 0; i < f.Length; i++)
             {
-                Console.Write("" + a[i]);
-            }
 
-            //string s = new string(line.Reverse().ToArray());
-            //Console.Write(s);
+                string w = f[i];
+
+                for (int j = w.Length-1; j >= 0; j--)
+                {
+
+                    Console.Write(w[j]);
+                }
+                Console.Write(" ");
+            }
         }
     }
 }
