@@ -1,0 +1,2 @@
+﻿Ivan;10;Sasha;5;Nekita;12;Tanya;2;Tanya;100
+Vika;18;Nikolai;9;Anton;19;Misha;2

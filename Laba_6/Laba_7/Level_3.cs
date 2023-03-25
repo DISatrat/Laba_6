@@ -24,37 +24,12 @@ namespace Laba_6.Laba_7
             List<Step> g1 = new List<Step>();
             List<Step> g2 = new List<Step>();
             List<Step> g3 = new List<Step>();
-            int r = 0;
-            //while (!streamReader.EndOfStream)
-            //{
-            //    string line = streamReader.ReadLine();
-            //    string[] s = line.Split(';');
-            //    string name = s[0];
-            //    string[] mas = s[1].Split(",");
-            //    int[] a = Array.ConvertAll(mas, int.Parse);
-            //    g1.Add(new Step(name, a));
-
-            //    foreach (Group g in g1)
-            //    {
-            //        for (int i = 0; i < 5; i++)
-            //        {
-            //            Console.Write(" " + g.Marks[i] + " ");
-            //        }
-            //        Console.WriteLine(g.Name);
-            //    }
-            //    Console.WriteLine();
-
-            //}
+            
             Reader(g1, path, 0);
-            //Reader(g2, path, 1);
-            //Reader(g3, path, 2);
+            Reader(g2, path, 1);
+            Reader(g3, path, 2);
+            
 
-            //Console.WriteLine();
-
-            //foreach (var item in g1)
-            //{
-            //    Console.WriteLine(item.Name);
-            //}
 
 
             //g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
@@ -66,14 +41,14 @@ namespace Laba_6.Laba_7
 
             //Console.WriteLine(g1[0].sred);
 
-            g2.Add(new Step("Max", new int[] { 5, 5, 5, 5, 5 }));
-            g2.Add(new Step("Nikita", new int[] { 3, 3, 5, 3, 4 }));
-            g2.Add(new Step("Misha", new int[] { 3, 4, 3, 3, 3 }));
-            g2.Add(new Step("Dima", new int[] { 5, 5, 5, 5, 3 }));
+            //g2.Add(new Step("Max", new int[] { 5, 5, 5, 5, 5 }));
+            //g2.Add(new Step("Nikita", new int[] { 3, 3, 5, 3, 4 }));
+            //g2.Add(new Step("Misha", new int[] { 3, 4, 3, 3, 3 }));
+            //g2.Add(new Step("Dima", new int[] { 5, 5, 5, 5, 3 }));
 
-            g3.Add(new Step("Nika", new int[] { 2, 3, 4, 2, 5 }));
-            g3.Add(new Step("Dasha", new int[] { 2, 3, 4, 2, 2 }));
-            g3.Add(new Step("Bill", new int[] { 3, 4, 4, 4, 5 }));
+            //g3.Add(new Step("Nika", new int[] { 2, 3, 4, 2, 5 }));
+            //g3.Add(new Step("Dasha", new int[] { 2, 3, 4, 2, 2 }));
+            //g3.Add(new Step("Bill", new int[] { 3, 4, 4, 4, 5 }));
 
             foreach (Group g in g1)
             {
@@ -205,27 +180,19 @@ namespace Laba_6.Laba_7
             }
 
             string[] s = line.Split(';');
-            Console.WriteLine(line);
-
-            //int[] a = Array.ConvertAll(m, int.Parse);
-            //g1.Add(new Step(name, a));
-
-
-
-
-            //string name = s[0];
-            //string[] mas = s[1].Split(",");
-            //int[] a = Array.ConvertAll(mas, int.Parse);
-
-            foreach (Group g in g1)
+            for (int i = 0; i < s.Length; i += 2)
             {
-                for (int i = 0; i < 5; i++)
+                if (s[i] == "" || s[i + 1] == "")
                 {
-                    Console.Write(" " + g.Marks[i] + " ");
+                    continue;
                 }
-                Console.WriteLine(g.Name);
+                string name = s[i];
+                string[] mas = s[i + 1].Split(',');
+                int[] ints = mas.Select(int.Parse).ToArray();
+
+
+                g1.Add(new Step(name, ints));
             }
-            //Console.WriteLine();
         }
 
         static double Sred(List<Step> g1)
@@ -311,7 +278,7 @@ namespace Laba_6.Laba_7
                 {
                     step = 2000;
                 }
-                //Console.Write("степендия " + Name + " = " + step);
+                Console.Write("степендия " + Name + " = " + step);
                 Console.WriteLine();
             }
 
@@ -368,16 +335,19 @@ namespace Laba_6.Laba_7
             List<Results> sg1 = new List<Results>();
             List<Results> sg2 = new List<Results>();
 
-            sg1.Add(new Results("Ivan", 10));
-            sg1.Add(new Results("Sasha", 5));
-            sg1.Add(new Results("Nekita", 12));
-            sg1.Add(new Results("Tanya", 2));
-            sg1.Add(new Results("Tanya", 100));
+            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_2.txt";
 
-            sg2.Add(new Results("Vika", 18));
-            sg2.Add(new Results("Nikolai", 9));
-            sg2.Add(new Results("Anton", 19));
-            sg2.Add(new Results("Misha", 2));
+            //sg1.Add(new Results("Ivan", 10));
+            //sg1.Add(new Results("Sasha", 5));
+            //sg1.Add(new Results("Nekita", 12));
+            //sg1.Add(new Results("Tanya", 2));
+            //sg1.Add(new Results("Tanya", 100));
+            ReadSki(sg1, path, 0);
+            ReadSki(sg2, path, 1);
+            //sg2.Add(new Results("Vika", 18));
+            //sg2.Add(new Results("Nikolai", 9));
+            //sg2.Add(new Results("Anton", 19));
+            //sg2.Add(new Results("Misha", 2));
 
             Console.WriteLine("1 group");
 
@@ -439,6 +409,30 @@ namespace Laba_6.Laba_7
             {
                 this.name = name;
                 this.result = result;
+            }
+        }
+        static void ReadSki(List<Results> list,string path,int c)
+        {
+            StreamReader streamReader = new StreamReader(path);
+            string line = "";
+            for (int i = 0; i <= c; i++)
+            {
+                line = streamReader.ReadLine();
+            }
+
+            string[] s = line.Split(';');
+            for (int i = 0; i < s.Length; i += 2)
+            {
+                if (s[i] == "" || s[i + 1] == "")
+                {
+                    continue;
+                }
+                string name = s[i];
+                string res_s = s[i + 1];
+                int res_i = int.Parse(res_s);
+                
+
+                list.Add(new Results(name, res_i));
             }
         }
         static List<Results> Final(List<Results> list1, List<Results> list2)
