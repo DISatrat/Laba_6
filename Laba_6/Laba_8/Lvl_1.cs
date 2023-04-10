@@ -17,7 +17,7 @@ namespace Laba_6.Laba_8
             double d = 0;
             for (int i = 0; i < set.Count; i++)
             {
-                int c = 0;
+                double c = 0;
                 for (int j = 0; j < line.Length; j++)
                 {
                     if (set.ElementAt(i) == line[j])
@@ -25,33 +25,37 @@ namespace Laba_6.Laba_8
                         c++;
                     }
                 }
-                if (c == 1)
+                Console.WriteLine("буква " + set.ElementAt(i) + " встречаеться с частотой " + c / line.Length);
+            }
+        }
+        //['!drow','olleH']
+        public static void N2_8()
+        {
+            string line = "!drow olleH";
+            string line2 = "Hello world!";
+
+            De(line);
+            De(line2);
+        }
+
+        public static void De(string line)
+        {
+            string line2 = "";
+            for (int i = line.Length - 1; i >= 0; i--)
+            {
+                if (!line[i].Equals(" "))
                 {
-                    c -= c;
+                    line2 += line[i];
                 }
                 else
                 {
-                    d += c;
+                    line2 += " ";
                 }
             }
-            Console.WriteLine("буквы встречаются c частотой" + d / line.Length * 100 + "%");
+        Console.WriteLine(line2);
         }
         //['olleh','drow']
-        public static void N2_8()
-        {
-            string line = "olleH !dlrow";
-
-            string[] f = line.Split(" ");
-            for (int i = 0; i < f.Length; i++)
-            {
-                string w = f[i];
-                for (int j = w.Length-1; j >= 0; j--)
-                {
-
-                    Console.Write(w[j]);
-                }
-                Console.Write(" ");
-            }
-        }
+      
+       
     }
 }
