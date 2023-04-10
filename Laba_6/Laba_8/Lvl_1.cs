@@ -44,9 +44,7 @@ namespace Laba_6.Laba_8
             string[] f = line.Split(" ");
             for (int i = 0; i < f.Length; i++)
             {
-
                 string w = f[i];
-
                 for (int j = w.Length-1; j >= 0; j--)
                 {
 

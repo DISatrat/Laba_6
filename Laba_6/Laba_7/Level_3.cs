@@ -28,9 +28,6 @@ namespace Laba_6.Laba_7
             Reader(g1, path, 0);
             Reader(g2, path, 1);
             Reader(g3, path, 2);
-            
-
-
 
             //g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
             //g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
