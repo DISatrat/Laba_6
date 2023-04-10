@@ -17,7 +17,7 @@ namespace Laba_6.Laba_7
     {
         public static void N1()
         {
-            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
+            string path = "C:\\Users\\Dimasik\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
             StreamReader streamReader = new StreamReader(path);
 
 
@@ -29,9 +29,6 @@ namespace Laba_6.Laba_7
             Reader(g2, path, 1);
             Reader(g3, path, 2);
             
-
-
-
             //g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
             //g1.Add(new Step("Andrey", new int[] { 3, 2, 3, 4, 3 }));
             //g1.Add(new Step("Sasha", new int[] { 3, 3, 3, 3, 3 }));
@@ -169,7 +166,7 @@ namespace Laba_6.Laba_7
                 Console.WriteLine(alls[i].GroupName + " " + alls[i].sred);
             }
         }
-
+        
         static void Reader(List<Step> g1, string path, int c)
         {
             StreamReader streamReader = new StreamReader(path);
@@ -182,16 +179,16 @@ namespace Laba_6.Laba_7
             string[] s = line.Split(';');
             for (int i = 0; i < s.Length; i += 2)
             {
-                if (s[i] == "" || s[i + 1] == "")
+                if (s[i] == "")
                 {
                     continue;
                 }
                 string name = s[i];
-                string[] mas = s[i + 1].Split(',');
-                int[] ints = mas.Select(int.Parse).ToArray();
+                int[] mas = s[i + 1].Split(',').Select(int.Parse).ToArray();
+                //int[] ints = mas.Select(int.Parse).ToArray();
 
 
-                g1.Add(new Step(name, ints));
+                g1.Add(new Step(name, mas));
             }
         }
 
@@ -265,7 +262,6 @@ namespace Laba_6.Laba_7
                         min = item;
                     }
                 }
-
                 if (min == 3)
                 {
                     step = 1100;
@@ -335,7 +331,7 @@ namespace Laba_6.Laba_7
             List<Results> sg1 = new List<Results>();
             List<Results> sg2 = new List<Results>();
 
-            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_2.txt";
+            string path = "C:\\Users\\Dimasik\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_2.txt";
 
             //sg1.Add(new Results("Ivan", 10));
             //sg1.Add(new Results("Sasha", 5));
@@ -611,13 +607,6 @@ namespace Laba_6.Laba_7
             }
         }
 
-        /// <summary>
-        /// 
-        /// 
-        /// 
-        /// 
-        /// 
-        /// </summary>
         static void N6()
         {
             Japanes[] jp = new Japanes[20];
