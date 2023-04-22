@@ -52,10 +52,8 @@ namespace Laba_6.Laba_8
                     line2 += " ";
                 }
             }
-        Console.WriteLine(line2);
+            Console.WriteLine(line2);
         }
-        //['olleh','drow']
-      
        
     }
 }
