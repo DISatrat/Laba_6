@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Transactions;
+using static Laba_6.Laba_7.Level_3;
 
 namespace Laba_6.Laba_7
 {
@@ -17,9 +18,9 @@ namespace Laba_6.Laba_7
     {
         public static void N1()
         {
-            string path = "C:\\Users\\Dimasik\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
+            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_1.txt";
+            string pathWrite = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\Writrer_1.txt";
             StreamReader streamReader = new StreamReader(path);
-
 
             List<Step> g1 = new List<Step>();
             List<Step> g2 = new List<Step>();
@@ -28,12 +29,6 @@ namespace Laba_6.Laba_7
             Reader(g1, path, 0);
             Reader(g2, path, 1);
             Reader(g3, path, 2);
-            
-
-
-
-
-
 
 
             //g1.Add(new Step("Ivan", new int[] { 5, 2, 3, 3, 3 }));
@@ -53,6 +48,9 @@ namespace Laba_6.Laba_7
             //g3.Add(new Step("Nika", new int[] { 2, 3, 4, 2, 5 }));
             //g3.Add(new Step("Dasha", new int[] { 2, 3, 4, 2, 2 }));
             //g3.Add(new Step("Bill", new int[] { 3, 4, 4, 4, 5 }));
+            Writer(g1, pathWrite);
+            Writer(g2, pathWrite);
+            Writer(g3, pathWrite);
 
             foreach (Group g in g1)
             {
@@ -110,7 +108,10 @@ namespace Laba_6.Laba_7
 
             Console.WriteLine("sorted, deleted students");
             Console.WriteLine();
-
+            
+            Writer(g1, pathWrite);
+            Writer(g2, pathWrite);
+            Writer(g3, pathWrite);
             foreach (Group g in g1)
             {
                 Console.Write(g.Name + " ");
@@ -167,13 +168,38 @@ namespace Laba_6.Laba_7
             Console.WriteLine("сортированные группы");
             Console.WriteLine();
 
-
+            WriterSortedGroup(alls, pathWrite);
             for (int i = 0; i < alls.Length; i++)
             {
                 Console.WriteLine(alls[i].GroupName + " " + alls[i].sred);
             }
         }
-        
+        static void WriterSortedGroup(All[] alls,string path)
+        {
+            StreamWriter sw=new StreamWriter(path,true);
+            for (int i = 0; i < alls.Length; i++)
+            {
+                sw.WriteLine(alls[i].GroupName + " " + alls[i].sred);
+            }
+            sw.Close();
+        }
+        static void Writer(List<Step> g1,string path)
+        {
+            StreamWriter sw=new StreamWriter(path,true);
+            foreach (Group g in g1)
+            {
+                sw.Write(g.Name + " ");
+                for (int i = 0; i < 5; i++)
+                {
+                    sw.Write( g.Marks[i] + " ");
+                }
+                sw.WriteLine();
+            }
+            sw.WriteLine();
+
+            sw.Close();
+        }
+
         static void Reader(List<Step> g1, string path, int c)
         {
             StreamReader streamReader = new StreamReader(path);
@@ -281,10 +307,13 @@ namespace Laba_6.Laba_7
                 {
                     step = 2000;
                 }
+                StreamWriter sw = new StreamWriter("C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\Writrer_1.txt",true);
+                sw.WriteLine("степендия " + Name + " = " + step);
+                sw.Close();
                 Console.Write("степендия " + Name + " = " + step);
                 Console.WriteLine();
             }
-
+            
         }
 
         public class All
