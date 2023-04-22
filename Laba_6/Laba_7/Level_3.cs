@@ -367,8 +367,8 @@ namespace Laba_6.Laba_7
             List<Results> sg1 = new List<Results>();
             List<Results> sg2 = new List<Results>();
 
-            string path = "C:\\Users\\Dimasik\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_2.txt";
-
+            string path = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\file_2.txt";
+            string pathWriter = "C:\\Users\\1\\source\\repos\\Laba_6\\Laba_6\\Laba_7\\Writer_2.txt";
             //sg1.Add(new Results("Ivan", 10));
             //sg1.Add(new Results("Sasha", 5));
             //sg1.Add(new Results("Nekita", 12));
@@ -382,11 +382,12 @@ namespace Laba_6.Laba_7
             //sg2.Add(new Results("Misha", 2));
 
             Console.WriteLine("1 group");
-
+            WriterSki(sg1, pathWriter);
             PrintSki(sg1);
 
             Console.WriteLine();
             Console.WriteLine("2 group");
+            WriterSki(sg2, pathWriter);
 
             PrintSki(sg2);
 
@@ -395,12 +396,12 @@ namespace Laba_6.Laba_7
 
             Console.WriteLine();
             Console.WriteLine("1 sorted group");
-
+            WriterSki(sg1, pathWriter);
             PrintSki(sg1);
 
             Console.WriteLine();
             Console.WriteLine("2 sorted group");
-
+            WriterSki(sg2, pathWriter);
             PrintSki(sg2);
 
 
@@ -409,9 +410,19 @@ namespace Laba_6.Laba_7
             Console.WriteLine("Final table");
             List<Results> sg3 = Final(sg1, sg2);
             PrintSki(sg3);
+            WriterSki(sg3, pathWriter);
 
         }
-
+        static void WriterSki(List<Results> sg2,string path)
+        {
+            StreamWriter streamWriter= new StreamWriter(path,true);
+            for (int i = 0; i < sg2.Count; i++)
+            {
+                streamWriter.WriteLine(sg2[i].name + " " + sg2[i].result + " " + sg2[i].res);
+            }
+            streamWriter.WriteLine();
+            streamWriter.Close();
+        }
         public class Results : SkiGroup
         {
             public string res;
